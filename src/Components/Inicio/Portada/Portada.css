@@ -1,0 +1,59 @@
+.hero{
+    position: relative;
+    min-height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.promo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+}
+.promo h1{
+    margin-bottom: 3rem;
+    background-color: rgba(94, 94, 94, 0.2);
+    border-radius: 20px;
+}
+.promo p{
+    margin-bottom: 4rem;
+}
+.promo button{
+    background-color: #8B0E0E;
+    color: white !important;
+    border-radius: 10px;
+    padding: 5px 2rem;
+    border: none;
+}
+.promo button a{
+    color: white !important;
+}
+.promo button:hover{
+    scale: 1.2;
+    transition: 0.8s;
+}
+video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.capa{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 95vh;
+    background-color: black;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+}

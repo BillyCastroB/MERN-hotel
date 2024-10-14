@@ -1,0 +1,143 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+*,*::before, *::after{
+    box-sizing: inherit;
+}
+
+li{
+    list-style: none;
+}
+h1,h2,h3,h4{
+    font-weight: 900;
+}
+h1{
+    font-size: 4.4rem;
+}
+h2{
+    font-size: 3.6rem;
+}
+.subtittle{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+h3{
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+h4{
+    font-size: 2.2rem;
+}
+p{
+    font-size: 2rem;
+}
+img{
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor {
+    max-width: 1400px;
+    width: 92%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+@media(width<=420px){
+    .section-contacto{
+        display: block;
+    }
+    .section-atencion h2{
+        font-size: 20px;
+        margin-top: 20px;
+    }
+}
+.descripcion{
+    padding: 2rem;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+ /* Estilos CSS */
+ #map-contenedor {
+    width: 100%; 
+    height: 500px;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 9rem;
+}
+
+/* Estilos para hacer que el mapa sea responsive */
+iframe {
+    width: 100%;
+    border-radius: 20px;
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+    #map-contenedor {
+        height: 30vh; /* Disminuir la altura del mapa para pantallas más pequeñas */
+    }
+}
+@media(width<420px){
+    #map-contenedor{
+        height: 100%;
+    }
+}
+
+.horario-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    gap: 5rem;
+}
+@media(width<=600px){
+    .horario-flex{
+        display: block;
+        padding: 0;
+    }
+}
+.img-horario{
+    width: 300px;
+}
+.horario{
+    width: 400px;
+    height: 300px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width: 768px) {
+    .horario{
+        width: 100%;
+    }
+    .section-atencion{
+        margin: 10px 0;
+    }
+}
+.horario-dias{
+    background-color: rgb(61, 61, 61);
+    border-radius: 20px;
+}
+.linea{
+    background-color: #8B0E0E;
+    height: 3px;
+    border: transparent;
+    width: 60%;
+    margin: 1rem auto;
+}

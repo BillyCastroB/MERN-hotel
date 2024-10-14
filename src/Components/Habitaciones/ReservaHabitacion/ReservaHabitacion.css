@@ -1,0 +1,139 @@
+h5{
+    font-size: 18px;
+}
+h4, h5{
+    margin: 5px 0;
+}
+.progreso{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    padding-top: 2rem;
+}
+progress{
+    width: 70%;
+    height: 25px;
+    -webkit-appearance: none; /* Eliminar estilos predefinidos */
+    appearance: none;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 3px 5px;
+}
+progress::-webkit-progress-bar {
+    background-color: #ffffff; 
+}
+progress::-webkit-progress-value {
+    background-color: #0369a1;
+    border-radius: 20px;
+}
+.contenedor_final{
+    padding: 2.5rem 0;
+    max-width: 1440px;
+    width: 90%;
+    margin: 0 auto;
+}
+@media(width>768px){
+    .grid_columnas{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+    }
+}
+.reserva__habitacion{
+    border-right: 2px solid rgba(40, 40, 40, 0.606);
+}
+.reserva__condiciones{
+    border-left: 2px solid rgba(40, 40, 40, 0.606);
+}
+
+/* datos habitacion */
+.reserva__huesped{
+    display: flex;
+    flex-direction: column;
+}
+.reserva--titulo{
+    color: #075985;
+}
+.habitacion-descripcion{
+    font-size: 16px;
+    text-align: justify;
+    padding: 0 10px 0 0;
+    margin: 5px 0;
+}
+.img-habitacion-seleccionada{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+.confimar-habitacion{
+    display: flex;
+    justify-content: end;
+}
+.btn-enviar{
+    background-color: #0369a1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 1rem 1.5rem 1rem 0; 
+    color: white;
+    cursor: pointer;
+}
+.btn-enviar:hover{
+    background-color: #075985;
+}
+.form__huesped{
+    background-color: #e5e7eb;
+    border-radius: 5px;
+}
+.form-div{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.form-div label{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 20px 0px 0px 15px;
+}
+.form-div input{
+    padding: 10px 0 10px 10px;
+    border: none;
+    border-radius: 10px;
+    width: 95%;
+    margin: 0 auto;
+    box-shadow: 3px 2px 5px rgb(125, 125, 125);
+}
+input::placeholder {
+    color: #888; 
+    font-style: italic; 
+    opacity: 0.7; 
+    text-align: left;
+}
+.form-huesped--btn{
+    display: flex;
+    justify-content: end;
+}
+
+.alert-error{
+    color: white;
+    background-color: #991b1b;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    padding: 3px 0;
+    font-size: 15px;
+    margin: 4px auto;
+    width: 90%;
+}
+
+/* datos reseva */
+.reserva__condiciones{
+    padding: 0 1rem;
+}
+
+.fecha{
+    color: #4c0519;
+    font-weight: 400;
+}

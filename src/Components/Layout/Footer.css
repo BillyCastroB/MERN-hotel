@@ -1,0 +1,96 @@
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+.footer-content div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.footer-content img {
+    margin-right: 20px; 
+    max-width: 100%;
+    height: auto;
+}
+.footer-content p {
+    color: white;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+.libro-reclamaciones a{
+    color: white !important;
+}
+.footer-content .icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+.footer-content .icons a {
+    color: #fff !important;
+    margin: 0 10px; 
+    font-size: 20px;
+    text-decoration: none;
+}
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+    }
+    .footer-content img {
+        margin-right: 0; 
+        margin-bottom: 20px;
+    }
+}
+.logo-blanco{
+    width: 20%;
+}
+.t4footer{
+    color: #E8A226;
+    font-weight: 300;
+}
+hr{
+    margin: 10px 0;
+}
+.f-end{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 10px;
+}
+.icons{
+    display: flex;
+    justify-content: space-evenly;
+}
+.fab{
+    color: white;
+}
+.fab:hover{
+    color: #E8A226;
+}
+.fas{
+    margin: 10px 0;
+}
+@media(width < 670px){
+    .footer-content{
+        display: block;
+    }
+}
+@media(width < 420px){
+    .f-end{
+        display: block;
+    }
+}

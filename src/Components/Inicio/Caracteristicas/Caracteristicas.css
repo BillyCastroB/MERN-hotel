@@ -1,0 +1,62 @@
+.caracteristicas{
+    /* background-image:  url(../images/architect-firm-01.jpg); */
+    background-position: center ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 700px;
+    color: white;
+}
+@media(width<=768px){
+    .caracteristicas{
+        height: 1200px;
+    }
+}
+@media(width<=420px){
+    .caracteristicas{
+        height: 1800px;
+    }
+}
+.gradiente{
+    background: linear-gradient(to bottom,rgb(0, 0, 0) 20%, rgb(0, 0, 0) 90%); 
+    height: 100%;
+    opacity: .75;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.caracteristicas-titulo{
+    margin: 3rem 0;
+    color: #828b4b;
+}
+.descripcion{
+    width: 75%;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.iconos{
+    width: 90%;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: space-around;
+    z-index: 2;
+    text-align: center;
+}
+@media(width<=768px){
+    .iconos{
+        display: block;
+    }
+}
+.iconos h4{
+    color: #828b4b;
+    margin: 1rem 0;
+}
+.iconos div img{
+    margin: 3rem auto;
+    z-index: 6;
+}
+.iconos div p{
+    line-height: 1.5;
+}
