@@ -1,10 +1,67 @@
-.section-inputs{
- background-color: white;
+.contenedor-crud{
+    padding: 0rem 0rem 2.5rem 0rem;
+    background-color: rgb(255, 255, 255);
+/*     background-image: url('../../../../public/imagenesPaginas/fondoPanel.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+.contenedor-formulario-crud{
+    width: 100%;
+}
+.logo-panel{
+    width: 120px;
+    height: 80px;
+    margin: 0 auto;
 }
 .form-crud{
- display: flex;
- background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
-.titulos{
- display: flex;
+.label-crud{
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+.titulo{
+    background-color: rgb(35, 73, 117);
+    text-align: center;
+    color: white;
+}
+.informacion-reservas{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    row-gap: 10px;
+}
+.informacion-reservas h5:first-child{
+    border-radius: 10px 0 0 10px;
+}
+.informacion-reservas h5:nth-child(7){
+    border-radius: 0 10px 10px 0;
+}
+.informacion-reservas h5{
+    padding: 1rem 0;
+}
+.informacion-reservas div{
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-crud{
+    padding: 0.5rem 1rem;
+    background-color: green;
+    border: transparent;
+    color: white;
+    border-radius: 5px;
+    padding: 1rem;
+    cursor: pointer;
+}
+.btn-crud:hover{
+    background-color: rgb(3, 119, 3);
+}
+.section-valores{
+    padding: 0px 3rem;
 }

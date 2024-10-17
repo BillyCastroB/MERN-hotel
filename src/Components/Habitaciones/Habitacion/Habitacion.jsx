@@ -69,6 +69,7 @@ export const Habitacion = ({habitacion}) => {
              <div className="cont-precio">
                <p className="precio"><strong>S/. {precio} .00</strong></p>
                <p>la noche</p>
+               <p>Cap. Max {capacidad}</p>
              </div>
              <form>
               <div className='formulario_dato'>

@@ -5,11 +5,10 @@ export const MainInicio = () => {
     <>
     <main className="">
         <section className="servicios container">
-            <div className="servicios-box1" data-aos="zoom-in" data-aos-duration="2000">
-                <img className="servicios-img" src="images/vistaExterior.avif" alt="Servicios"/>
+            <div className="servicios-box1">
+                <img className="servicios-img" src="./imagenesPaginas/vistaExterior.webp" alt="Servicios"/>
             </div>
-            <div className="servicios-box2" data-aos="fade-up"
-            data-aos-anchor-placement="center-bottom" data-aos-duration="2000">
+            <div className="servicios-box2">
                 <h3 className="servicios-titulo text-center">SMART TV CON CABLE / TELEFONO / WIFI ALTA VELOCIDAD</h3>
                 <p className="servicios-text">Todas las habitaciones cuentan con TV CABLE y todos los canales disponibles. Garantizamos su buena atención, contamos con el servicio de WI-FI de alta velocidad gratis en las habitaciones y en todo el hotel. Siéntete cómodo con el servicio de baño privado, agua fría y caliente en todas las habitaciones, también contamos con estacionamiento.
                 </p>
@@ -22,7 +21,7 @@ export const MainInicio = () => {
         <section className="container">
             <div className="atencion-grid">
                 <div className="atencion-img" data-aos="fade-right" data-aos-duration="2000">
-                    <img src="images/atencion2.avif" alt=""/>
+                    <img src="./imagenesPaginas/atencion2.webp" alt=""/>
                 </div>
                 <div className="atencion-textos" data-aos="fade-left">
                     <h4>EXTERIOR</h4>

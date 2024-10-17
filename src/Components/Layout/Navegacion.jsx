@@ -7,7 +7,7 @@ export const Navegacion = () => {
         <header>
         <div className="cabecera-navegacion">
             <div className="logo">
-                <img className="img-logo" src="images/logo/logo-negro.png" alt="logo"/>
+                <img className="img-logo" src="./imagenesPaginas/logo-negro.png" alt="logo"/>
             </div>
             <nav className="navegacion">
                 <Link to={'/'} className='enlace enlace-contacto'>
