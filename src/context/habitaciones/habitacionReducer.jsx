@@ -1,5 +1,5 @@
-import { ADQUIRIR_HABITACION } from "../types/type";
-import { ALMACENAR_FECHAS } from "../types/type";
+import { ADQUIRIR_HABITACION } from "../../types/type";
+import { ALMACENAR_FECHAS } from "../../types/type";
 
 const habitacionReducer = (state, action) => {
     switch (action.type) {

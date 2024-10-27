@@ -9,9 +9,6 @@ export const Portada = () => {
                 <p>Las mejores habitaciones de la ciudad</p>
                 <button><a href="/views/habitaciones">Ver Habitaciones</a></button>
             </section>
-            {/* <video autoplay loop muted>
-                <source src="videos/presentacion.mp4"/>
-            </video> */}
             <div className="capa"></div>
         </div>
     </>

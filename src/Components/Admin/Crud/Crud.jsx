@@ -19,6 +19,10 @@ export const Crud = () => {
          <input placeholder='Apellidos' type="text" name='apellidos' id='apellidos'/>
         </fieldset>
         <fieldset>
+         <label className='label-crud' htmlFor="email">Email</label>
+         <input placeholder='Email' type="email" name='email' id='email'/>
+        </fieldset>
+        <fieldset>
          <label className='label-crud' htmlFor="telefono">Telefono</label>
          <input placeholder='Telefono' type="number" name='telefono' id='telefono'/>
         </fieldset>

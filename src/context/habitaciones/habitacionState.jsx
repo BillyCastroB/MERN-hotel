@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { HabitacionContext } from './habitacionContext';
 import habitacionReducer from './habitacionReducer';
-import { ADQUIRIR_HABITACION, ALMACENAR_FECHAS } from '../types/type';
+import { ADQUIRIR_HABITACION, ALMACENAR_FECHAS } from '../../types/type';
 
 export const HabitacionState = (props) => {
   const initialState = {

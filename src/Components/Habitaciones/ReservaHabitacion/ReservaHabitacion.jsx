@@ -1,17 +1,32 @@
 import React, { useContext, useState } from 'react';
 import './ReservaHabitacion.css';
 import { Navegacion } from '../../Layout/Navegacion';
-import { HabitacionContext } from '../../../context/habitacionContext';
+import { HabitacionContext } from '../../../context/habitaciones/habitacionContext';
+import { clienteAxios } from '../../../../config/clienteAxios';
+import { ClienteContext } from '../../../context/clienteContext/clienteContext';
 
 export const ReservaHabitacion = () => {
+
+  const clienteContexto = ClienteContext;
+  const { confirmarHuesped } = useContext(clienteContexto);
+
+  const [datosHuesped, setDatosHuesped] = useState({
+
+    nombre: '',
+    apellidos: '',
+    email: '',
+    telefono: ''
+
+  })
+
+
   const habitacionesContext = useContext(HabitacionContext);
   const { habitacion, fechas } = habitacionesContext;
-
   // validacion nombre Huesped
-  const [nombre, setNombre] = useState('');
-  const [apellidos, setApellidos] = useState('');
-  const [email, setEmail] = useState('');
-  const [telefono, setTelefono] = useState('');
+  const [nombreHuesped, setNombre] = useState('');
+  const [apellidosHuesped, setApellidos] = useState('');
+  const [emailHuesped, setEmail] = useState('');
+  const [telefonohuesped, setTelefono] = useState('');
 
   const [errorNombre, setErrorNombre] = useState(false);
   const [errorApellidos, setErrorApellidos] = useState(false);
@@ -31,6 +46,11 @@ export const ReservaHabitacion = () => {
       setErrorNombre(true);
     }
     setNombre(value);
+
+    setDatosHuesped({
+      ...datosHuesped,
+      [e.target.name]: e.target.value
+    })
   }
   const apellidosChange = (e) => {
     const { value } = e.target;
@@ -40,6 +60,10 @@ export const ReservaHabitacion = () => {
       setErrorApellidos(true);
     }
     setApellidos(value);
+    setDatosHuesped({
+      ...datosHuesped,
+      [e.target.name]: e.target.value
+    })
   }
   const emailChange = (e) => {
     const { value } = e.target;
@@ -49,6 +73,10 @@ export const ReservaHabitacion = () => {
       setErrorEmail(true);
     }
     setEmail(value);
+    setDatosHuesped({
+      ...datosHuesped,
+      [e.target.name]: e.target.value
+    })
   }
   const telefonoChange = (e) => {
     const { value } = e.target;
@@ -58,14 +86,23 @@ export const ReservaHabitacion = () => {
       setErrorTelefono(true);
     }
     setTelefono(value);
+    setDatosHuesped({
+      ...datosHuesped,
+      [e.target.name]: e.target.value
+    })
   }
   const validacionFinal = (e)=>{
     e.preventDefault();
-    if(nombre.trim() === '' || apellidos.trim() === '' || email.trim() === '' || telefono.trim() === ''){
+    if(nombreHuesped.trim() === '' || apellidosHuesped.trim() === '' || emailHuesped.trim() === '' || telefonohuesped.trim() === ''){
       setErrorVacios(true);
       return;
     }
     setErrorVacios(false);
+  }
+
+  const enviarDatosHuesped = e =>{
+    e.preventDefault();
+    confirmarHuesped(datosHuesped);
   }
 
   return habitacion === null ? (
@@ -102,7 +139,7 @@ export const ReservaHabitacion = () => {
               </div>
             </form>
           </div>
-
+{/* -------------------------------------------------------------------------------- */}
           <div className="reserva__huesped">
             <h2 className="reserva--titulo">Datos del Huesped</h2>
             <form 
@@ -114,7 +151,7 @@ export const ReservaHabitacion = () => {
                   type="text" 
                   name="nombre" 
                   id="nombre"
-                  value={nombre}
+                  value={nombreHuesped}
                   placeholder="Tu Nombre"
                   onChange={nombreChange}
                   />
@@ -126,7 +163,7 @@ export const ReservaHabitacion = () => {
                   type="text" 
                   name="apellidos" 
                   id="apellidos" 
-                  value={apellidos}
+                  value={apellidosHuesped}
                   placeholder="Tus Apellidos"
                   onChange={apellidosChange}
                   />
@@ -138,7 +175,7 @@ export const ReservaHabitacion = () => {
                   type="email" 
                   name="email" 
                   id="email" 
-                  value={email}
+                  value={emailHuesped}
                   placeholder="Tu Email"
                   onChange={emailChange}
                   />
@@ -150,7 +187,7 @@ export const ReservaHabitacion = () => {
                   type="text" 
                   name="telefono" 
                   id="telefono" 
-                  value={telefono}
+                  value={telefonohuesped}
                   placeholder="Tu Teléfono" 
                   onChange={telefonoChange}
                   />
@@ -159,6 +196,7 @@ export const ReservaHabitacion = () => {
               { errorVacios? <p className='alert-error'>Todos los campos son obligaorios</p> : null }
               <div className="form-huesped--btn">
                 <button 
+                  onClick={enviarDatosHuesped}
                   className="btn-enviar" 
                   type="submit"
                   >
@@ -167,7 +205,7 @@ export const ReservaHabitacion = () => {
               </div>
             </form>
           </div>
-
+{/* ----------------------------------------------------------------------------------------- */}
           <div className="reserva__condiciones">
             <h2 className='reserva--titulo'>Datos de Reserva</h2>
             <form className="form_condiciones">

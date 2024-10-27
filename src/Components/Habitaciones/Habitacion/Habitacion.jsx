@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import './Habitacion.css';
-import { HabitacionContext } from '../../../context/habitacionContext';
+import { HabitacionContext } from '../../../context/habitaciones/habitacionContext';
 
 export const Habitacion = ({habitacion}) => {
   const habitacionesContext = useContext(HabitacionContext);
