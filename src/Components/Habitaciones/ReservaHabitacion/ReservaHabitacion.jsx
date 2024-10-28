@@ -8,20 +8,28 @@ import { ClienteContext } from '../../../context/clienteContext/clienteContext';
 export const ReservaHabitacion = () => {
 
   const clienteContexto = ClienteContext;
-  const { confirmarHuesped } = useContext(clienteContexto);
+  const { confirmarHuesped, confirmarHabitacion } = useContext(clienteContexto);
 
   const [datosHuesped, setDatosHuesped] = useState({
-
     nombre: '',
     apellidos: '',
     email: '',
     telefono: ''
 
   })
+  const [datosHabitacion, setDatosHabitacion] = useState({
+    numero: '',
+    nombre: '',
+    precio: '',
+    capacidad: '',
+    disponible: false
+  })
 
 
   const habitacionesContext = useContext(HabitacionContext);
   const { habitacion, fechas } = habitacionesContext;
+
+
   // validacion nombre Huesped
   const [nombreHuesped, setNombre] = useState('');
   const [apellidosHuesped, setApellidos] = useState('');
@@ -104,7 +112,20 @@ export const ReservaHabitacion = () => {
     e.preventDefault();
     confirmarHuesped(datosHuesped);
   }
-
+  const llenarDatosHabitacion = (e)=>{
+    e.preventDefault();
+    setDatosHabitacion({
+      numero: habitacion.id,
+      nombre: habitacion.nombre,
+      precio: habitacion.precio,
+      capacidad: habitacion.capacidad,
+      disponible: false
+    })
+  }
+  const enviarDatosHabitacion = (e)=>{
+    e.preventDefault();
+    confirmarHabitacion(datosHabitacion);
+  }
   return habitacion === null ? (
     <p>Habitación no seleccionada</p>
   ) : (
@@ -134,8 +155,9 @@ export const ReservaHabitacion = () => {
               <div className='img-habitacion-seleccionada'>
                 <img src={`imagenesHabitaciones/${habitacion.imagen_1}`} alt="Imagen de la habitación" />
               </div>
+              <button onClick={llenarDatosHabitacion}>Validar 1</button>
               <div className='confimar-habitacion'>
-                <button className='btn-enviar'>Confirmar Habitación</button>
+                <button onClick={enviarDatosHabitacion} className='btn-enviar'>Confirmar Habitación</button>
               </div>
             </form>
           </div>

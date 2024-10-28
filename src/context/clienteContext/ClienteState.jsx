@@ -20,14 +20,23 @@ export const ClienteState = (props) => {
         console.log(error)
       }
     }
-
+    const confirmarHabitacion = async (habitacion)=>{
+      try {
+        console.log(habitacion);
+        const resultado = await clienteAxios.post('/reservar/habitacion', habitacion);
+        console.log(resultado);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
   return (
     <ClienteContext.Provider value={{
         habitacion: state.habitacion,
         huesped: state.huesped,
         fechas: state.fechas,
-        confirmarHuesped
+        confirmarHuesped,
+        confirmarHabitacion
     }}>
         {props.children}
     </ClienteContext.Provider>
