@@ -15,7 +15,7 @@ export const ClienteState = (props) => {
     const confirmarHuesped = async (huesped)=>{
       try {
          const resultado = await clienteAxios.post('/reserva/huesped', huesped);
-         console.log(resultado) 
+         console.log(resultado)
       } catch (error) {
         console.log(error)
       }
@@ -29,6 +29,15 @@ export const ClienteState = (props) => {
         console.log(error);
       }
     }
+    const confirmarFechas = async (fechas)=>{
+      try {
+        console.log(fechas);
+        const resultado = await clienteAxios.post('/reservacion/fechas', fechas);
+        console.log(resultado);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
   return (
     <ClienteContext.Provider value={{
@@ -36,7 +45,8 @@ export const ClienteState = (props) => {
         huesped: state.huesped,
         fechas: state.fechas,
         confirmarHuesped,
-        confirmarHabitacion
+        confirmarHabitacion,
+        confirmarFechas
     }}>
         {props.children}
     </ClienteContext.Provider>

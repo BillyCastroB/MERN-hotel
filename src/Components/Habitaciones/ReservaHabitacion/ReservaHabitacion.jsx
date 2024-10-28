@@ -2,35 +2,37 @@ import React, { useContext, useState } from 'react';
 import './ReservaHabitacion.css';
 import { Navegacion } from '../../Layout/Navegacion';
 import { HabitacionContext } from '../../../context/habitaciones/habitacionContext';
-import { clienteAxios } from '../../../../config/clienteAxios';
 import { ClienteContext } from '../../../context/clienteContext/clienteContext';
 
 export const ReservaHabitacion = () => {
-
   const clienteContexto = ClienteContext;
-  const { confirmarHuesped, confirmarHabitacion } = useContext(clienteContexto);
-
+  const { confirmarHuesped, confirmarHabitacion, confirmarFechas } = useContext(clienteContexto);
   const [datosHuesped, setDatosHuesped] = useState({
+    numeroHabitacion: '', // Inicialmente vacío
     nombre: '',
     apellidos: '',
     email: '',
     telefono: ''
-
-  })
+  });
   const [datosHabitacion, setDatosHabitacion] = useState({
     numero: '',
     nombre: '',
     precio: '',
     capacidad: '',
     disponible: false
+  });
+  const [ datosFechas, setDatosFechas ] = useState({
+    numeroHuesped: '',
+    numeroHabitacion: '',
+    fechaInicio: '',
+    fechaFin: ''
   })
-
 
   const habitacionesContext = useContext(HabitacionContext);
   const { habitacion, fechas } = habitacionesContext;
 
 
-  // validacion nombre Huesped
+
   const [nombreHuesped, setNombre] = useState('');
   const [apellidosHuesped, setApellidos] = useState('');
   const [emailHuesped, setEmail] = useState('');
@@ -48,93 +50,91 @@ export const ReservaHabitacion = () => {
 
   const nombreChange = (e) => {
     const { value } = e.target;
-    if (soloLetrasRegex.test(value) || value === '') {
-      setErrorNombre(false);
-    } else {
-      setErrorNombre(true);
-    }
+    setErrorNombre(!soloLetrasRegex.test(value) && value !== '');
     setNombre(value);
-
-    setDatosHuesped({
-      ...datosHuesped,
+    setDatosHuesped((prevDatos) => ({
+      ...prevDatos,
       [e.target.name]: e.target.value
-    })
-  }
+    }));
+  };
+
   const apellidosChange = (e) => {
     const { value } = e.target;
-    if (soloLetrasRegex.test(value) || value === '') {
-      setErrorApellidos(false);
-    } else {
-      setErrorApellidos(true);
-    }
+    setErrorApellidos(!soloLetrasRegex.test(value) && value !== '');
     setApellidos(value);
-    setDatosHuesped({
-      ...datosHuesped,
+    setDatosHuesped((prevDatos) => ({
+      ...prevDatos,
       [e.target.name]: e.target.value
-    })
-  }
+    }));
+  };
+
   const emailChange = (e) => {
     const { value } = e.target;
-    if (emailRegex.test(value) || value === '') {
-      setErrorEmail(false);
-    } else {
-      setErrorEmail(true);
-    }
+    setErrorEmail(!emailRegex.test(value) && value !== '');
     setEmail(value);
-    setDatosHuesped({
-      ...datosHuesped,
+    setDatosHuesped((prevDatos) => ({
+      ...prevDatos,
       [e.target.name]: e.target.value
-    })
-  }
+    }));
+  };
+
   const telefonoChange = (e) => {
     const { value } = e.target;
-    if (telefonoRegex.test(value) || value === '') {
-      setErrorTelefono(false);
-    } else {
-      setErrorTelefono(true);
-    }
+    setErrorTelefono(!telefonoRegex.test(value) && value !== '');
     setTelefono(value);
-    setDatosHuesped({
-      ...datosHuesped,
+    setDatosHuesped((prevDatos) => ({
+      ...prevDatos,
       [e.target.name]: e.target.value
-    })
-  }
-  const validacionFinal = (e)=>{
+    }));
+  };
+
+  const validacionFinal = (e) => {
     e.preventDefault();
-    if(nombreHuesped.trim() === '' || apellidosHuesped.trim() === '' || emailHuesped.trim() === '' || telefonohuesped.trim() === ''){
+    if (nombreHuesped.trim() === '' || apellidosHuesped.trim() === '' || emailHuesped.trim() === '' || telefonohuesped.trim() === '') {
       setErrorVacios(true);
       return;
     }
     setErrorVacios(false);
-  }
+  };
 
-  const enviarDatosHuesped = e =>{
+  const enviarDatosHuesped = (e) => {
     e.preventDefault();
     confirmarHuesped(datosHuesped);
-  }
-  const llenarDatosHabitacion = (e)=>{
+  };
+
+  const llenarDatosHabitacion = (e) => {
     e.preventDefault();
+    const idHabitacion = habitacion.id; // Obtén el ID de la habitación
     setDatosHabitacion({
-      numero: habitacion.id,
+      numero: idHabitacion,
       nombre: habitacion.nombre,
       precio: habitacion.precio,
       capacidad: habitacion.capacidad,
       disponible: false
-    })
-  }
-  const enviarDatosHabitacion = (e)=>{
+    });
+
+    // También actualiza numeroHabitacion en datosHuesped
+    setDatosHuesped((prevDatos) => ({
+      ...prevDatos,
+      numeroHabitacion: idHabitacion // Asigna el id de la habitación
+    }));
+  };
+
+  const enviarDatosHabitacion = (e) => {
     e.preventDefault();
     confirmarHabitacion(datosHabitacion);
+  };
+
+  const enviarDatosFechas = (e)=>{
+    e.preventDefault();
+    confirmarFechas(datosFechas)
   }
+
   return habitacion === null ? (
     <p>Habitación no seleccionada</p>
   ) : (
     <>
       <Navegacion />
-{/*       <div className='progreso'>
-        <label for="file">Proceso de Reserva:</label>
-        <progress id="file" max="100" value="70"></progress>
-      </div> */}
       <div className="contenedor_final">
         <div className="grid_columnas">
           <div className="reserva__habitacion">
@@ -161,12 +161,10 @@ export const ReservaHabitacion = () => {
               </div>
             </form>
           </div>
-{/* -------------------------------------------------------------------------------- */}
+          {/* -------------------------------    HUESPED              ------------------------------------- */}
           <div className="reserva__huesped">
             <h2 className="reserva--titulo">Datos del Huesped</h2>
-            <form 
-              className="form__huesped"
-              onSubmit={validacionFinal}>
+            <form className="form__huesped" onSubmit={validacionFinal}>
               <div className="form-div">
                 <label htmlFor="nombre">Nombre:</label>
                 <input 
@@ -176,9 +174,9 @@ export const ReservaHabitacion = () => {
                   value={nombreHuesped}
                   placeholder="Tu Nombre"
                   onChange={nombreChange}
-                  />
+                />
               </div>
-              {errorNombre? <p className='alert-error'>Nombre no valido</p> : null}
+              {errorNombre && <p className='alert-error'>Nombre no valido</p>}
               <div className="form-div">
                 <label htmlFor="apellidos">Apellidos:</label>
                 <input 
@@ -188,9 +186,9 @@ export const ReservaHabitacion = () => {
                   value={apellidosHuesped}
                   placeholder="Tus Apellidos"
                   onChange={apellidosChange}
-                  />
+                />
               </div>
-              {errorApellidos? <p className='alert-error'>Apellidos no valido</p> : null}
+              {errorApellidos && <p className='alert-error'>Apellidos no valido</p>}
               <div className="form-div">
                 <label htmlFor="email">Email:</label>
                 <input 
@@ -200,9 +198,9 @@ export const ReservaHabitacion = () => {
                   value={emailHuesped}
                   placeholder="Tu Email"
                   onChange={emailChange}
-                  />
+                />
               </div>
-              {errorEmail? <p className='alert-error'>Email no valido</p> : null}
+              {errorEmail && <p className='alert-error'>Email no valido</p>}
               <div className="form-div">
                 <label htmlFor="telefono">Teléfono:</label>
                 <input 
@@ -212,40 +210,36 @@ export const ReservaHabitacion = () => {
                   value={telefonohuesped}
                   placeholder="Tu Teléfono" 
                   onChange={telefonoChange}
-                  />
+                />
               </div>
-              {errorTelefono? <p className='alert-error'>Telefono no valido</p> : null}
-              { errorVacios? <p className='alert-error'>Todos los campos son obligaorios</p> : null }
+              {errorTelefono && <p className='alert-error'>Teléfono no valido</p>}
+              {errorVacios && <p className='alert-error'>Todos los campos son obligatorios</p>}
               <div className="form-huesped--btn">
                 <button 
                   onClick={enviarDatosHuesped}
                   className="btn-enviar" 
                   type="submit"
-                  >
+                >
                   Registrar
                 </button>
               </div>
             </form>
           </div>
-{/* ----------------------------------------------------------------------------------------- */}
+          {/* -----------------------    FECHAS         ------------------------- */}
           <div className="reserva__condiciones">
             <h2 className='reserva--titulo'>Datos de Reserva</h2>
             <form className="form_condiciones">
-            <p>Fecha inicio: <span className='fecha'>{fechas.diaInicio}</span></p>
-            <p>Fecha Fin: <span className='fecha'>{fechas.diaFin}</span></p>
-              
+              <p>Fecha inicio: <span className='fecha'>{fechas.diaInicio}</span></p>
+              <p>Fecha Fin: <span className='fecha'>{fechas.diaFin}</span></p>
               <div>
-                
                 <button 
                   className='btn-enviar'
                   type="button" 
-                  onClick={() => console.log(habitacion)}
+                  onClick={datosFechas}
                 >
                   Completar
                 </button>
-                
               </div>
-              
             </form>
           </div>
         </div>
