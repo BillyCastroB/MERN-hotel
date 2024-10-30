@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './ReservaHabitacion.css';
 import { Navegacion } from '../../Layout/Navegacion';
 import { HabitacionContext } from '../../../context/habitaciones/habitacionContext';
@@ -27,10 +27,10 @@ export const ReservaHabitacion = () => {
     fechaInicio: '',
     fechaFin: ''
   });
-
+  const [totalPagar, setTotalPagar] = useState(0);
   const habitacionesContext = useContext(HabitacionContext);
   const { habitacion, fechas } = habitacionesContext; // Obtenemos las fechas del contexto
-  const {id}=habitacion;
+  const {id, precio}=habitacion;
   const {diaFin, diaInicio} = fechas;
   const [nombreHuesped, setNombre] = useState('');
   const [apellidosHuesped, setApellidos] = useState('');
@@ -46,6 +46,28 @@ export const ReservaHabitacion = () => {
   const soloLetrasRegex = /^[a-zA-Z\s]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const telefonoRegex = /^[0-9]{9}$/;
+
+  useEffect(() => {
+    setDatosFechas({
+      numeroHuesped: id,
+      numeroHabitacion: id,
+      fechaInicio: diaInicio,
+      fechaFin: diaFin
+    })
+  }, []);
+
+  useEffect( ()=>{
+    
+    const inicio = new Date(datosFechas.fechaInicio);  // Ejemplo: '2024-10-29'
+    const fin = new Date(datosFechas.fechaFin);
+
+    const diferenciaEnMilisegundos = fin.getTime() - inicio.getTime();
+
+    const diferenciaEnDias = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+    
+    setTotalPagar(diferenciaEnDias* precio);
+
+  }, [datosFechas] )
 
   const nombreChange = (e) => {
     const { value } = e.target;
@@ -268,7 +290,7 @@ export const ReservaHabitacion = () => {
                   }
                 />
               </div>
-              <h5>Total a pagar: <span> $ </span></h5>
+              <h5>Total a pagar: <span> $ {totalPagar} </span></h5>
               <div className="form-fechas-registrar">
                 <button onClick={enviarDatosFechas} type="submit" className="btn-enviar">
                   Confirmar Fechas
