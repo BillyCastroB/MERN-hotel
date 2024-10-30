@@ -25,7 +25,8 @@ export const ReservaHabitacion = () => {
     numeroHuesped: '',
     numeroHabitacion: '',
     fechaInicio: '',
-    fechaFin: ''
+    fechaFin: '',
+    totalPago: 0
   });
   const [totalPagar, setTotalPagar] = useState(0);
   const habitacionesContext = useContext(HabitacionContext);
@@ -52,22 +53,23 @@ export const ReservaHabitacion = () => {
       numeroHuesped: id,
       numeroHabitacion: id,
       fechaInicio: diaInicio,
-      fechaFin: diaFin
+      fechaFin: diaFin,
+      totalPago: totalPagar 
     })
   }, []);
 
   useEffect( ()=>{
     
-    const inicio = new Date(datosFechas.fechaInicio);  // Ejemplo: '2024-10-29'
-    const fin = new Date(datosFechas.fechaFin);
+    let inicio = new Date(datosFechas.fechaInicio);  // Ejemplo: '2024-10-29'
+    let fin = new Date(datosFechas.fechaFin);
 
-    const diferenciaEnMilisegundos = fin.getTime() - inicio.getTime();
+    let diferenciaEnMilisegundos = fin.getTime() - inicio.getTime();
 
-    const diferenciaEnDias = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+    let diferenciaEnDias = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
     
     setTotalPagar(diferenciaEnDias* precio);
 
-  }, [datosFechas] )
+  }, [datosFechas.fechaInicio, datosFechas.fechaFin] )
 
   const nombreChange = (e) => {
     const { value } = e.target;
@@ -153,7 +155,8 @@ export const ReservaHabitacion = () => {
       numeroHuesped: id,
       numeroHabitacion: id,
       fechaInicio: diaInicio,
-      fechaFin: diaFin
+      fechaFin: diaFin,
+      totalPago: totalPagar
     })
     confirmarHabitacion(nuevaHabitacion);
   };
@@ -163,8 +166,9 @@ export const ReservaHabitacion = () => {
     setDatosFechas({
       numeroHuesped: id,
       numeroHabitacion: id,
-      fechaInicio: diaInicio,
-      fechaFin: diaFin
+      fechaInicio: datosFechas.fechaInicio,
+      fechaFin: datosFechas.fechaFin,
+      totalPago: totalPagar
     })
     confirmarFechas(datosFechas);
   };
