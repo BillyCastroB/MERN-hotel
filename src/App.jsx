@@ -7,10 +7,12 @@ import { ReservaHabitacion } from './Components/Habitaciones/ReservaHabitacion/R
 import { Admin } from './Components/Admin/Admin';
 import { Crud } from './Components/Admin/Crud/Crud';
 import { ClienteState } from './context/clienteContext/clienteState';
+import { DisponibleState } from './context/disponibilidad/DisponibleState';
 import { useContext } from 'react';
 function App() {
   return (
     <HabitacionState>
+      <DisponibleState>
         <ClienteState>
           <BrowserRouter>
             <Routes>
@@ -23,6 +25,7 @@ function App() {
             </Routes>
           </BrowserRouter>
         </ClienteState>
+      </DisponibleState> 
     </HabitacionState>
   );
 }

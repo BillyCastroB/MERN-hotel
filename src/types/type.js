@@ -1,2 +1,9 @@
 export const ADQUIRIR_HABITACION = 'ADQUIRIR_HABITACION';
 export const ALMACENAR_FECHAS = 'ALMACENAR_FECHAS';
+
+
+
+
+/* ver disponibilidades de habitaciones */
+
+export const CAMBIAR_DISPONIBLE_HBAITACION1 = 'CAMBIAR_DISPONIBLE_HBAITACION1';

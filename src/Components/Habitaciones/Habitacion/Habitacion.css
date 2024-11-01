@@ -131,6 +131,15 @@ main{
     padding: 3px 5px;
     font-size: 15px;
 }
+.Nodisponible{
+    background-color: rgb(201, 22, 22);
+    color: white;
+}
+.verObjDisponibles{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .habitacion__descripcion{
     display: flex;
     flex-direction: column;

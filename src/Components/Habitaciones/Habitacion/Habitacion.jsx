@@ -1,17 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import './Habitacion.css';
+import { clienteAxios } from '../../../../config/clienteAxios';
 import { HabitacionContext } from '../../../context/habitaciones/habitacionContext';
+import DisponibleContext from '../../../context/disponibilidad/disponibleContext';
 
 export const Habitacion = ({habitacion}) => {
   const habitacionesContext = useContext(HabitacionContext);
   const { obtenerHabitacion, almacenarFechas } = habitacionesContext;
+
+  const dispdHabitaciones = useContext( DisponibleContext );
+  const { dispHabitacion1, dispHabitacion2,dispHabitacion3,dispHabitacion4, dispHabitacion5,dispHabitacion6, desHabilitar1 } = dispdHabitaciones;
 
   const { id, nombre, descripcion, imagen_1,imagen_2,imagen_3, precio, capacidad } = habitacion
   
   const [diasFecha, setDiasFecha] = useState({
     diaInicio: '',
     diaFin: ''
+  })
+  const [estado, setEstado] = useState({
+    accesoReserva: false,
+    temporalVista: true
   })
 
   const escucharFechas = (e)=>{
@@ -27,10 +36,35 @@ export const Habitacion = ({habitacion}) => {
     }
   }, [diasFecha] )
 
-  const obtenerFechas = (e)=>{
+  const obtenerFechas = async (e)=>{
     e.preventDefault();
     almacenarFechas(diasFecha)
+    let numero = id;
+    console.log(numero);
+    switch (numero) {
+      case 1:
+        desHabilitar1(false);
+        break;
+
+      default:
+        console.log("algo esta fallando");
+        break;
+    }
+    try {
+      const respuesta = await clienteAxios.get(`/habitacion/disponibilidad/${numero}`);
+      const disponible = respuesta.data.disponible;
+      
+      setEstado({
+        ...estado,  // Corrige a `estado` para mantener el nombre del estado inicial
+        accesoReserva: disponible,
+        temporalVista: disponible
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
   }
+
   return (
    <>
    <div className="contenedor">
@@ -88,20 +122,37 @@ export const Habitacion = ({habitacion}) => {
                   >Ver Disponibilidad</button>
               </div>
              </form>
-              <div>
-                 <p className='disponible'>disponible</p>
-                 <Link
-                    className="btn-reservar"
-                    to={{
-                      pathname: '/reservar'
-                    }}
-                    role="button"
-                    onClick={()=>obtenerHabitacion(habitacion)}
-                  >
-                  Reservar
-                </Link>
-              </div>
- 
+             <div className='verObjDisponibles'>
+                {
+                 estado.accesoReserva ? 
+                 (
+                 <div>
+                   <p className='disponible'>disponible</p>
+                    <Link
+                      className="btn-reservar"
+                      to={{
+                        pathname: '/reservar'
+                      }}
+                      role="button"
+                      onClick={()=>obtenerHabitacion(habitacion)}
+                    >
+                      Reservar
+                    </Link>  
+                  </div> 
+                 ) : null}
+
+                 {
+                  estado.temporalVista? 
+                  ( 
+                    null
+                  ) : 
+                 (
+                  <div>
+                    <p className='Nodisponible'>No Disponible en este momento</p>
+                  </div>
+                 )
+                }
+             </div>
            </div>
          </div>
        </div>
