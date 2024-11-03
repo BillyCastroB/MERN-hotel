@@ -9,3 +9,17 @@
     font-weight: bold;
     color: rgb(255, 255, 255);
 }
+.btns-crud{
+    display: flex;
+    gap: 5px;
+}
+.btn-editar{
+    background-color: #eab308;
+    color: white;
+    padding: 5px 10px;
+}
+.btn-eliminar{
+    background-color: #991b1b;
+    color: white;
+    padding: 5px 10px;
+}

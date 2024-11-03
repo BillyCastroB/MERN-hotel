@@ -62,7 +62,6 @@ export const Habitacion = ({habitacion}) => {
     } catch (error) {
       console.log(error);
     }
-
   }
 
   return (
