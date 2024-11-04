@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import './ReservaHabitacion.css';
+import { useNavigate } from 'react-router-dom';
 import { Navegacion } from '../../Layout/Navegacion';
 import { HabitacionContext } from '../../../context/habitaciones/habitacionContext';
 import { ClienteContext } from '../../../context/clienteContext/clienteContext';
 
 export const ReservaHabitacion = () => {
+  const navigate = useNavigate();
   const clienteContexto = ClienteContext;
   const { confirmarHuesped, confirmarHabitacion, confirmarFechas } = useContext(clienteContexto);
   const [datosHuesped, setDatosHuesped] = useState({
@@ -173,7 +175,16 @@ export const ReservaHabitacion = () => {
     confirmarFechas(datosFechas);
   };
 
+  const limpiarVolver = ()=>{
+    setDatosHuesped({});
+    setDatosFechas({});
+    setDatosHabitacion({});
+    navigate('/habitaciones');
+  }
 
+  const generarBoleta = ()=>{
+    navigate('/boleta');
+  }
   return habitacion === null ? (
     <p>Habitación no seleccionada</p>
   ) : (
@@ -301,6 +312,9 @@ export const ReservaHabitacion = () => {
                 </button>
               </div>
             </form>
+
+            <button onClick={limpiarVolver} type='button'>Calcelar Reserva</button>
+            <button type='button' onClick={generarBoleta}>Generar boleta</button>
           </div>
         </div>
       </div>

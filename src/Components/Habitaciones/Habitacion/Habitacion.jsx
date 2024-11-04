@@ -47,7 +47,7 @@ export const Habitacion = ({habitacion}) => {
         break;
 
       default:
-        console.log("algo esta fallando");
+        console.log(".");
         break;
     }
     try {
@@ -115,7 +115,7 @@ export const Habitacion = ({habitacion}) => {
               </div>
               <div>
                 <button 
-                  className='btn-disponibilidad ' 
+                  className={diasFecha.diaInicio !=="" && diasFecha.diaFin !== '' ? 'btn-disponibilidad usable' : "btn-disponibilidad no-usable"}
                   type='submit'
                   onClick={obtenerFechas}
                   >Ver Disponibilidad</button>

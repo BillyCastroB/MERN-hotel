@@ -9,6 +9,7 @@ import { Crud } from './Components/Admin/Crud/Crud';
 import { ClienteState } from './context/clienteContext/clienteState';
 import { DisponibleState } from './context/disponibilidad/DisponibleState';
 import { useContext } from 'react';
+import { Boleta } from './Components/Habitaciones/boletaHotel/Boleta';
 function App() {
   return (
     <HabitacionState>
@@ -22,6 +23,7 @@ function App() {
               <Route path="/reservar" element={<ReservaHabitacion />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/panel" element={<Crud />} />
+              <Route path="/boleta" element={<Boleta />} />
             </Routes>
           </BrowserRouter>
         </ClienteState>

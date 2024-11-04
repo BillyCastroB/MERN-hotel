@@ -1,0 +1,132 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 80%;
+  margin: 80px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h2 {
+  text-align: right;
+  flex-grow: 1;
+  color: #0c5ea1; 
+}
+
+.header2 h2 {
+  color: #0c5ea1; 
+}
+
+.boarding-pass {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.boarding-pass-alt02 {
+  border: 1px solid #e0e0e0;
+  background-color: #e9f5ff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header img {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.passenger-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.passenger-info02 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1px;
+}
+
+.info-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.barcode {
+  width: 100px; 
+  height: 1000px; 
+  background-color: #ddd; 
+  margin-left: 20px; 
+}
+
+.label-value, .label-value02 {
+  display: flex;
+  flex-direction: column;
+}
+
+.label, .label02 {
+  margin-bottom: 4px;
+  color: #acabab;
+}
+
+.value, .value02 {
+  font-weight: normal;
+}
+
+.boarding-pass2 {
+  display: flex;
+  flex-direction: column;
+  width: 44%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.boarding-pass-alt02 {
+  border: 1px solid #c0c0c0;
+  background-color: #e9f5ff;
+}
+
+.passenger-info02 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.info-container02 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 10px;
+}
+
+.barcode {
+  width: 60px; 
+  height: 230px; 
+  background-color: #ddd; 
+  margin-left: 10px; 
+}
+@media print {
+  @page {
+    size: landscape; /* Configura la página en orientación horizontal */
+  }
+  
+  /* Estilos adicionales para impresión, si es necesario */
+  .btn-imprimir {
+    display: none; /* Oculta el botón de impresión en la versión impresa */
+  }
+}
