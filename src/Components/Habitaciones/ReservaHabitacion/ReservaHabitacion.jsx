@@ -46,9 +46,9 @@ export const ReservaHabitacion = () => {
   const [errorTelefono, setErrorTelefono] = useState(false);
   const [errorVacios, setErrorVacios] = useState(false);
 
-  const soloLetrasRegex = /^[a-zA-Z\s]+$/;
+  const soloLetrasRegex = /^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const telefonoRegex = /^[0-9]{9}$/;
+  const telefonoRegex = /^9[0-9]{8}$/;
 
   useEffect(() => {
     setDatosFechas({
