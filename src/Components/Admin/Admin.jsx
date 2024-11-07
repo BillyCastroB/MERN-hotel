@@ -10,14 +10,28 @@ export const Admin = () => {
   });
   
   const [logeo, setLogeo] = useState(false);
-  const [mensajeError, setMensajeError] = useState(true)
-  const navigate = useNavigate(); // Hook dentro del componente
+  const [mensajeError, setMensajeError] = useState('');
+  const [isUsuarioValido, setIsUsuarioValido] = useState(true); // Estado de validez del campo usuario
+  const [isInputValid, setIsInputValid] = useState(true); // Validación general de la entrada
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (logeo) {
-      navigate('/panel'); // Navega solo cuando logeo sea true
+      navigate('/panel');
     }
   }, [logeo, navigate]);
+
+  useEffect(() => {
+    // Solo verificamos el campo 'usuario' para caracteres especiales
+    const regex = /^[a-zA-Z0-9]*$/;
+    if (!regex.test(formData.usuario)) {
+      setIsUsuarioValido(false);
+      setMensajeError('Prohibido caracteres especiales en el campo usuario');
+    } else {
+      setIsUsuarioValido(true);
+      setMensajeError(''); // Limpiar el mensaje de error si la entrada es válida
+    }
+  }, [formData.usuario]); // Este effect solo se ejecuta cuando cambia 'usuario'
 
   const handleChange = (e) => {
     setFormData({
@@ -29,7 +43,6 @@ export const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Enviar datos al backend como POST
       const resultado = await clienteAxios.post('/login', { 
         usuario: formData.usuario, 
         password: formData.contraseña 
@@ -37,16 +50,18 @@ export const Admin = () => {
       console.log('Resultado del login:', resultado.data);
       
       if (resultado.data.tipo === 'directo') {
-        setLogeo(true); // Esto activará el efecto para navegar a "/panel"
+        setLogeo(true);
       }
     } catch (error) {
-      setMensajeError(false);
+      setMensajeError('Usuario/contraseña no válido');
       console.log('Error en el login:', error.response?.data?.msg || error.message);
     }
   };
-  const volverInicio = ()=>{
-    navigate('/')
-  }
+
+  const volverInicio = () => {
+    navigate('/');
+  };
+
   return (
     <div className='contenedor-login'>
       <img className='fondo-login' src="imagenesPaginas/fondo-login.webp" alt="Fondo de login" />
@@ -75,10 +90,17 @@ export const Admin = () => {
               onChange={handleChange}
             />
           </fieldset>
-          <input className='btn-btn-login' type="submit" value="Ingresar" />
-          {mensajeError ?  null : <p className='mensajeError'>Usuario/contraseña no valido</p> }
+          <input 
+            className='btn-btn-login' 
+            type="submit" 
+            value="Ingresar" 
+            disabled={!isUsuarioValido || !formData.usuario || !formData.contraseña} // Deshabilita el botón si el usuario es inválido
+          />
+          {mensajeError && <p className='mensajeError'>{mensajeError}</p>} {/* Mostrar el mensaje de error si existe */}
           <div className='container-btn'>
-            <button onClick={volverInicio} type='button' className='btn-volver'><img src="./imagenesPaginas/volver.png" alt="" /></button>
+            <button onClick={volverInicio} type='button' className='btn-volver'>
+              <img src="./imagenesPaginas/volver.png" alt="Volver" />
+            </button>
           </div>
         </form>
       </section>

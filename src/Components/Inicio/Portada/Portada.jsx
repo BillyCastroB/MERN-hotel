@@ -4,12 +4,12 @@ export const Portada = () => {
   return (
     <>
         <div className="hero">
-            <section className="promo">
-                <h1>¿Estás listo para una nueva experiencia?</h1>
-                <p>Las mejores habitaciones de la ciudad</p>
-                <button><a href="/views/habitaciones">Ver Habitaciones</a></button>
-            </section>
-            <div className="capa"></div>
+            <img className='fondo-portada' src="./imagenesPaginas/hotel-portada.webp" alt="" />
+            <img src="./imagenesPaginas/logo-blanco.png" alt="" />
+            <div className='degradado'>
+              HOTEL EL PALOMAR
+              <p>SISTEMA WEB</p>
+            </div>
         </div>
     </>
   )

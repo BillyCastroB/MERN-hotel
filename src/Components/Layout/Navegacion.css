@@ -4,12 +4,12 @@ a{
     font-weight: bolder;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     letter-spacing: 2px;
+    color: white;
 }
 
 header{
     position: sticky;
     top: 0;
-    background-color: white;
     z-index: 4;
 }
 .btn-admin{
@@ -21,6 +21,7 @@ header{
     height: 40px;
 }
 .cabecera-navegacion{
+    background-color: transparent;
     position: sticky;
     top: 0;
     height: 50px;
