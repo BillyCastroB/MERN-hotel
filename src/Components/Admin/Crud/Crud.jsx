@@ -1,220 +1,213 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import './Crud.css';
 import { Reserva } from './Reserva';
 import { Navegacion } from '../../Layout/Navegacion';
 import { clienteAxios } from '../../../../config/clienteAxios';
+
 export const Crud = () => {
-
-  const [datosHuespedes, setDatosHuespedes] = useState([]);
-  const [fechasHabitaciones, setFechasHabitaciones] = useState([]);
+  const [habitaciones, setHabitaciones] = useState([
+    { id: 1, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
+    { id: 2, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
+    { id: 3, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
+    { id: 4, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
+    { id: 5, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
+    { id: 6, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
+  ]);
   const [loading, setLoading] = useState(true);
-  const [loadingFechas, setLoadingFechas] = useState(true);
-  const [datos1, setDatos1] = useState({
-    nombre: '',
-    apellidos: '',
-    email: '',
-    telefono: '',
-  })
-  const [datos2, setDatos2] = useState({
-    nombre: '',
-    apellidos: '',
-    email: '',
-    telefono: '',
-  })
-  useEffect( ()=>{
-    traerDatosFechasHabitaciones();
-    traerDatosHuespedes();
-  }, [] )
-  const traerDatosFechasHabitaciones = async () => {
+  const [formularioDatos, setFormularioDatos] = useState({
+    datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' },
+    fechas: { fechaInicio: '', fechaFin: '' }
+  });
+  const [habitacionEditando, setHabitacionEditando] = useState(null);
+
+  useEffect(() => {
+    traerDatosHabitaciones();
+  }, []);
+
+  const formatearFecha = (fecha) => {
+    const fechaObj = new Date(fecha);
+    return fechaObj.toISOString().split('T')[0];
+  };
+
+  const traerDatosHabitaciones = async () => {
     try {
       const numerosDeHabitacion = [1, 2, 3, 4, 5, 6];
-      const solicitudes = numerosDeHabitacion.map(numero =>
-        clienteAxios.get(`/reservacion/fechas/${numero}`)
-      );
-  
-      const respuestas = await Promise.all(solicitudes);
-  
-      const nuevasFechas = respuestas.map((respuesta, index) => ({
-        numeroHabitacion: numerosDeHabitacion[index],
-        fechaInicio: respuesta.data[0].fechaInicio || '',
-        fechaFin: respuesta.data[0].fechaFin || '',
-        disponible: respuesta.data[0].disponible || false
+      const solicitudesFechas = numerosDeHabitacion.map(numero => clienteAxios.get(`/reservacion/fechas/${numero}`));
+      const solicitudesHuespedes = numerosDeHabitacion.map(numero => clienteAxios.get(`/reserva/huesped/${numero}`));
+
+      const [respuestasFechas, respuestasHuespedes] = await Promise.all([
+        Promise.all(solicitudesFechas),
+        Promise.all(solicitudesHuespedes)
+      ]);
+
+      const nuevasHabitaciones = habitaciones.map((habitacion, index) => ({
+        ...habitacion,
+        fechas: {
+          fechaInicio: formatearFecha(respuestasFechas[index].data[0]?.fechaInicio || ''),
+          fechaFin: formatearFecha(respuestasFechas[index].data[0]?.fechaFin || '')
+        },
+        datosHuesped: {
+          nombre: respuestasHuespedes[index].data[0]?.nombre || '',
+          apellidos: respuestasHuespedes[index].data[0]?.apellidos || '',
+          email: respuestasHuespedes[index].data[0]?.email || '',
+          telefono: respuestasHuespedes[index].data[0]?.telefono || ''
+        }
       }));
-  
-      setFechasHabitaciones(nuevasFechas);
-  
-      console.log("Fechas de habitaciones:", nuevasFechas);
-      console.log(fechasHabitaciones);
+
+      setHabitaciones(nuevasHabitaciones);
     } catch (error) {
       console.log(error);
-    }finally {
-      setLoadingFechas(false); // Ocultar el spinner cuando termine la consulta
+    } finally {
+      setLoading(false);
     }
   };
 
+  const manejarEditar = (habitacionId) => {
+    const habitacionSeleccionada = habitaciones.find(hab => hab.id === habitacionId);
+    setFormularioDatos(habitacionSeleccionada);
+    setHabitacionEditando(habitacionId);
+  };
 
-  const traerDatosHuespedes = async () => {
+  const manejarEliminar = async (id) => {
     try {
-      const numerosDeHabitacion = [1, 2, 3, 4, 5, 6];
-      const solicitudes = numerosDeHabitacion.map(numero =>
-        clienteAxios.get(`/reserva/huesped/${numero}`)
-      );
-  
-      const respuestas = await Promise.all(solicitudes);
-  
-      const nuevosDatos = respuestas.map((respuesta, index) => ({
-        numeroHabitacion: numerosDeHabitacion[index],
-        nombre: respuesta.data[0].nombre || '',
-        apellidos: respuesta.data[0].apellidos || '',
-        email: respuesta.data[0].email || '',
-        telefono: respuesta.data[0].telefono || ''
-      }));
-  
-      setDatosHuespedes(nuevosDatos);
-      console.log("Datos de huéspedes:", nuevosDatos);
+        // Llamada al backend para eliminar la reserva completa
+        await clienteAxios.delete(`/reserva/huesped/completa/${id}`);
+        
+        // Actualizar el estado en el front-end
+        const nuevasHabitaciones = habitaciones.map(habitacion => 
+            habitacion.id === id
+                ? { 
+                    ...habitacion, 
+                    datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, 
+                    fechas: { fechaInicio: '', fechaFin: '' } 
+                  }
+                : habitacion
+        );
+
+        setHabitaciones(nuevasHabitaciones);
+        alert('Reserva eliminada exitosamente');
     } catch (error) {
-      console.log(error);
-    }finally {
-      setLoading(false); // Ocultar el spinner cuando termine la consulta
+        console.error('Error al eliminar la reserva:', error);
+        alert('Error al eliminar la reserva');
+    }
+};
+
+
+  const manejarCambioFormulario = (e) => {
+    const { name, value } = e.target;
+    if (['nombre', 'apellidos', 'email', 'telefono'].includes(name)) {
+      setFormularioDatos((prevState) => ({
+        ...prevState,
+        datosHuesped: { ...prevState.datosHuesped, [name]: value }
+      }));
+    } else {
+      setFormularioDatos((prevState) => ({
+        ...prevState,
+        fechas: { ...prevState.fechas, [name]: value }
+      }));
     }
   };
-  const verFechas = (e)=>{
+
+  const manejarSubmit = (e) => {
     e.preventDefault();
-    console.log(fechasHabitaciones);
-  }
-  
+    const nuevasHabitaciones = habitaciones.map(hab =>
+      hab.id === habitacionEditando ? { ...hab, ...formularioDatos } : hab
+    );
+    setHabitaciones(nuevasHabitaciones);
+    setHabitacionEditando(null);
+  };
 
   return (
-
     <div className='contenedor-crud'>
-      <Navegacion/>
-      
-     <section className='section-inputs'>
-      <img className='logo-panel' src="./imagenesPaginas/logo-negro.png" alt="icono" />
-      <div className='contenedor-formulario-crud'>
-       <form className='form-crud'>
-        <fieldset>
-         <label className='label-crud' htmlFor="nombre">Nombre</label>
-         <input placeholder='Nombre' type="text" name='nombre' id='nombre'/>
-        </fieldset>
-        <fieldset>
-         <label className='label-crud' htmlFor="apellidos">Apellidos</label>
-         <input placeholder='Apellidos' type="text" name='apellidos' id='apellidos'/>
-        </fieldset>
-        <fieldset>
-         <label className='label-crud' htmlFor="email">Email</label>
-         <input placeholder='Email' type="email" name='email' id='email'/>
-        </fieldset>
-        <fieldset>
-         <label className='label-crud' htmlFor="telefono">Telefono</label>
-         <input placeholder='Telefono' type="number" name='telefono' id='telefono'/>
-        </fieldset>
-        <fieldset>
-         <label className='label-crud' htmlFor="inicio">Fecha Inicio</label>
-         <input type="date" name='inicio' id='inicio'/>
-        </fieldset>
-        <fieldset>
-         <label className='label-crud' htmlFor="fin">Fecha Fin</label>
-         <input type="date" name='fin' id='fin'/>
-        </fieldset>
-         <input onClick={verFechas} className='btn-crud' type="submit" value={"crear/editar"}/>
-       </form>
-      </div>
-     </section>
-     {loading || loadingFechas ? (
-        <div className="spinner">Cargando datos...</div> // Spinner de carga
+      <Navegacion />
+      <section className='section-inputs'>
+        <img className='logo-panel' src="./imagenesPaginas/logo-negro.png" alt="icono" />
+        <div className='contenedor-formulario-crud'>
+          <form className='form-crud' onSubmit={manejarSubmit}>
+            <fieldset>
+              <label className='label-crud' htmlFor="nombre">Nombre</label>
+              <input
+                placeholder='Nombre'
+                type="text"
+                name='nombre'
+                id='nombre'
+                value={formularioDatos.datosHuesped.nombre}
+                onChange={manejarCambioFormulario}
+              />
+            </fieldset>
+            <fieldset>
+              <label className='label-crud' htmlFor="apellidos">Apellidos</label>
+              <input
+                placeholder='Apellidos'
+                type="text"
+                name='apellidos'
+                id='apellidos'
+                value={formularioDatos.datosHuesped.apellidos}
+                onChange={manejarCambioFormulario}
+              />
+            </fieldset>
+            <fieldset>
+              <label className='label-crud' htmlFor="email">Email</label>
+              <input
+                placeholder='Email'
+                type="email"
+                name='email'
+                id='email'
+                value={formularioDatos.datosHuesped.email}
+                onChange={manejarCambioFormulario}
+              />
+            </fieldset>
+            <fieldset>
+              <label className='label-crud' htmlFor="telefono">Teléfono</label>
+              <input
+                placeholder='Teléfono'
+                type="number"
+                name='telefono'
+                id='telefono'
+                value={formularioDatos.datosHuesped.telefono}
+                onChange={manejarCambioFormulario}
+              />
+            </fieldset>
+            <fieldset>
+              <label className='label-crud' htmlFor="fechaInicio">Fecha Inicio</label>
+              <input
+                type="date"
+                name='fechaInicio'
+                id='fechaInicio'
+                value={formularioDatos.fechas.fechaInicio}
+                onChange={manejarCambioFormulario}
+              />
+            </fieldset>
+            <fieldset>
+              <label className='label-crud' htmlFor="fechaFin">Fecha Fin</label>
+              <input
+                type="date"
+                name='fechaFin'
+                id='fechaFin'
+                value={formularioDatos.fechas.fechaFin}
+                onChange={manejarCambioFormulario}
+              />
+            </fieldset>
+            <button className='btn-crud' type="submit">Guardar</button>
+          </form>
+        </div>
+      </section>
+
+      {loading ? (
+        <div className="spinner">Cargando datos...</div>
       ) : (
-     <section className='section-valores'>
-      
-      <div className='informacion-reservas'>
-
-           <h5 className='titulo'>N°</h5>
-           <h5 className='titulo'>Habitación</h5>
-           <h5 className='titulo'>Nombre</h5>
-           <h5 className='titulo'>Apellidos</h5>
-           <h5 className='titulo'>Telefono</h5>
-           <h5 className='titulo'>Email</h5>
-           <h5 className='titulo'>Fecha Inicio</h5>
-           <h5 className='titulo'>Fecha Fin</h5>
-           <h5 className='titulo'>Total</h5>
-           <h5 className='titulo'>-</h5>
-      </div>
-     <div className='componenteReserva'>
-          <Reserva
-            id={1}
-            habitacion="Pareja"
-            nombre={datosHuespedes[0].nombre}
-            apellidos={datosHuespedes[0].apellidos}
-            telefono= {datosHuespedes[0].telefono}
-            email= {datosHuespedes[0].email}
-            fechaInicio={fechasHabitaciones[0].fechaInicio.slice(0,10)}
-            fechaFin={fechasHabitaciones[0].fechaFin.slice(0,10)}
-            total = '0'
-          />
-      </div>
-      <div className='componenteReserva'>
-          <Reserva
-            id={2}
-            habitacion={"Alka"}
-            nombre={datosHuespedes[1].nombre}
-            apellidos={datosHuespedes[1].apellidos}
-            telefono={datosHuespedes[1].telefono}
-            email={datosHuespedes[1].email}
-            fechaInicio={fechasHabitaciones[1].fechaInicio.slice(0,10)}
-            fechaFin={fechasHabitaciones[1].fechaFin.slice(0,10)}
-            total={0}
-          />
-      </div>
-      <div className='componenteReserva'>
-          <Reserva
-            id={3}
-            habitacion="Terraza"
-            nombre={datosHuespedes[2].nombre}
-            apellidos={datosHuespedes[2].apellidos}
-            telefono={datosHuespedes[2].telefono}
-            email={datosHuespedes[2].email}
-            fechaInicio={fechasHabitaciones[2].fechaInicio.slice(0,10)}
-            fechaFin={fechasHabitaciones[2].fechaFin.slice(0,10)}
-          />
-      </div>
-      <div className='componenteReserva'>
-          <Reserva
-            id={4}
-            habitacion="Encanto"
-            nombre={datosHuespedes[3].nombre}
-            apellidos={datosHuespedes[3].apellidos}
-            telefono={datosHuespedes[3].telefono}
-            email={datosHuespedes[3].email}
-            fechaInicio={fechasHabitaciones[3].fechaInicio.slice(0,10)}
-            fechaFin={fechasHabitaciones[3].fechaFin.slice(0,10)}
-          />
-      </div>
-      <div className='componenteReserva'>
-          <Reserva
-            id={5}
-            habitacion="Prime Celeste"
-            nombre={datosHuespedes[4].nombre}
-            apellidos={datosHuespedes[4].apellidos}
-            telefono={datosHuespedes[4].telefono}
-            email={datosHuespedes[4].email}
-            fechaInicio={fechasHabitaciones[4].fechaInicio.slice(0,10)}
-            fechaFin={fechasHabitaciones[4].fechaFin.slice(0,10)}
-          />
-      </div>
-      <div className='componenteReserva'>
-          <Reserva
-            id={6}
-            habitacion="Mirror"
-            nombre={datosHuespedes[5].nombre}
-            apellidos={datosHuespedes[5].apellidos}
-            telefono={datosHuespedes[5].telefono}
-            email={datosHuespedes[5].email}
-            fechaInicio={fechasHabitaciones[5].fechaInicio.slice(0,10)}
-            fechaFin={fechasHabitaciones[5].fechaFin.slice(0,10)}
-          />
-      </div> 
-
-     </section>)}
+        <section className='section-valores'>
+          {habitaciones.map((habitacion) => (
+            <div key={habitacion.id} className='componenteReserva'>
+              <Reserva
+                {...habitacion}
+                manejarEditar={manejarEditar}
+                manejarEliminar={manejarEliminar} // Pasa la función manejarEliminar
+              />
+            </div>
+          ))}
+        </section>
+      )}
     </div>
-  )
-}
+  );
+};
