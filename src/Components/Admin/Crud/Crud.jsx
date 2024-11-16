@@ -5,6 +5,25 @@ import { Navegacion } from '../../Layout/Navegacion';
 import { clienteAxios } from '../../../../config/clienteAxios';
 
 export const Crud = () => {
+  const precios = [150.00, 200.00, 250.00, 300.00, 350.00, 400.00];
+  const [totales, setTotales] = useState([]);
+  const calcularDiasYTotal = (fechaInicio, fechaFin, precio) => {
+    const fechaInicioObj = new Date(fechaInicio);
+    const fechaFinObj = new Date(fechaFin);
+    const diferenciaMilisegundos = fechaFinObj - fechaInicioObj;
+    const dias = Math.ceil(diferenciaMilisegundos / (1000 * 60 * 60 * 24)); // Convertir milisegundos a días
+    return dias > 0 ? dias * precio : 0; // Asegurar que los días sean positivos
+  };
+  const actualizarTotales = () => {
+    const nuevosTotales = habitaciones.map((habitacion) => {
+      const { fechaInicio, fechaFin } = habitacion.fechas;
+      const precio = precios[habitacion.id - 1]; // Selecciona el precio según el ID
+      const total = calcularDiasYTotal(fechaInicio, fechaFin, precio);
+      return total;
+    });
+    setTotales(nuevosTotales);
+  };
+
   const [habitaciones, setHabitaciones] = useState([
     { id: 1, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
     { id: 2, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
@@ -13,19 +32,74 @@ export const Crud = () => {
     { id: 5, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
     { id: 6, datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' }, fechas: { fechaInicio: '', fechaFin: '' } },
   ]);
+  const [btnCrear, setBtnCrear] = useState(false);
   const [loading, setLoading] = useState(true);
   const [formularioDatos, setFormularioDatos] = useState({
+    id: '', 
     datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' },
     fechas: { fechaInicio: '', fechaFin: '' }
   });
   const [habitacionEditando, setHabitacionEditando] = useState(null);
-
   useEffect(() => {
     traerDatosHabitaciones();
   }, []);
 
+  const enviarDatos = async (e) => {
+    e.preventDefault();
+    if (!formularioDatos.id) {
+      alert('Por favor, selecciona una habitación antes de guardar.');
+      return;
+    }
+    try {
+      const precio = precios[formularioDatos.id - 1]; // Obtén el precio según el ID de la habitación
+      const totalPago = calcularDiasYTotal(formularioDatos.fechas.fechaInicio, formularioDatos.fechas.fechaFin, precio); // Calcula el total
+    
+      // Construir datos del huésped con el número de habitación
+      const datosHuesped = {
+        ...formularioDatos.datosHuesped,
+        numeroHabitacion: formularioDatos.id // Asigna el ID de la habitación
+      };
+  
+      // Construir fechas con número de habitación y número de huésped
+      const datosFechas = {
+        ...formularioDatos.fechas,
+        numeroHabitacion: formularioDatos.id,
+        numeroHuesped: formularioDatos.id, // Asume que el ID del huésped es igual al ID de la habitación
+        totalPago // Agrega el total calculado
+      };
+  
+      // Envía los datos al backend
+      const resultado1 = await clienteAxios.post('/reserva/huesped', datosHuesped);
+      const resultado2 = await clienteAxios.post('/reservacion/fechas', datosFechas);
+  
+      console.log('Resultado huesped:', resultado1);
+      console.log('Resultado fechas:', resultado2);
+      alert('Datos guardados correctamente');
+      await traerDatosHabitaciones();
+    } catch (error) {
+      console.error('Error al enviar datos:', error.response ? error.response.data : error.message);
+      alert('Ocurrió un error al guardar los datos.');
+    }
+  };
+  
+  
+  const actualizarDatos = async(e)=>{
+    e.preventDefault();
+    try{
+      console.log('vamo a editar');
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   const formatearFecha = (fecha) => {
+    if (!fecha) {
+      return ''; // Devuelve una cadena vacía si la fecha no es válida
+    }
     const fechaObj = new Date(fecha);
+    if (isNaN(fechaObj)) {
+      return ''; // Maneja casos en los que la fecha no pueda ser convertida
+    }
     return fechaObj.toISOString().split('T')[0];
   };
 
@@ -61,11 +135,20 @@ export const Crud = () => {
       setLoading(false);
     }
   };
-
+  useEffect(() => {
+    if (!loading) {
+      actualizarTotales();
+    }
+  }, [habitaciones, loading]);
   const manejarEditar = (habitacionId) => {
     const habitacionSeleccionada = habitaciones.find(hab => hab.id === habitacionId);
-    setFormularioDatos(habitacionSeleccionada);
+    setFormularioDatos({
+      id: habitacionSeleccionada.id, // Asigna el ID al formulario
+      datosHuesped: habitacionSeleccionada.datosHuesped,
+      fechas: habitacionSeleccionada.fechas
+    });
     setHabitacionEditando(habitacionId);
+    setBtnCrear(true); // Cambia el estado a 'editar'
   };
 
   const manejarEliminar = async (id) => {
@@ -123,7 +206,17 @@ export const Crud = () => {
       <section className='section-inputs'>
         <img className='logo-panel' src="./imagenesPaginas/logo-negro.png" alt="icono" />
         <div className='contenedor-formulario-crud'>
-          <form className='form-crud' onSubmit={manejarSubmit}>
+          <form className='form-crud' onSubmit={btnCrear? enviarDatos: actualizarDatos}>
+          <fieldset>
+            <label className='label-crud' htmlFor="num">N° Habitacion</label>
+            <input
+              type="number"
+              name="id"
+              id="num"
+              value={formularioDatos.id}
+              disabled // Hace el campo no editable
+            />
+          </fieldset>
             <fieldset>
               <label className='label-crud' htmlFor="nombre">Nombre</label>
               <input
@@ -197,10 +290,11 @@ export const Crud = () => {
         <div className="spinner">Cargando datos...</div>
       ) : (
         <section className='section-valores'>
-          {habitaciones.map((habitacion) => (
+          {habitaciones.map((habitacion, index) => (
             <div key={habitacion.id} className='componenteReserva'>
               <Reserva
                 {...habitacion}
+                total={totales[index]}
                 manejarEditar={manejarEditar}
                 manejarEliminar={manejarEliminar} // Pasa la función manejarEliminar
               />
