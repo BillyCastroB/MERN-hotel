@@ -11,13 +11,13 @@ export const Crud = () => {
     const fechaInicioObj = new Date(fechaInicio);
     const fechaFinObj = new Date(fechaFin);
     const diferenciaMilisegundos = fechaFinObj - fechaInicioObj;
-    const dias = Math.ceil(diferenciaMilisegundos / (1000 * 60 * 60 * 24)); // Convertir milisegundos a días
-    return dias > 0 ? dias * precio : 0; // Asegurar que los días sean positivos
+    const dias = Math.ceil(diferenciaMilisegundos / (1000 * 60 * 60 * 24)); 
+    return dias > 0 ? dias * precio : 0; 
   };
   const actualizarTotales = () => {
     const nuevosTotales = habitaciones.map((habitacion) => {
       const { fechaInicio, fechaFin } = habitacion.fechas;
-      const precio = precios[habitacion.id - 1]; // Selecciona el precio según el ID
+      const precio = precios[habitacion.id - 1]; 
       const total = calcularDiasYTotal(fechaInicio, fechaFin, precio);
       return total;
     });
@@ -40,9 +40,11 @@ export const Crud = () => {
     fechas: { fechaInicio: '', fechaFin: '' }
   });
   const [habitacionEditando, setHabitacionEditando] = useState(null);
+
   useEffect(() => {
     traerDatosHabitaciones();
   }, []);
+
 
   const enviarDatos = async (e) => {
     e.preventDefault();
@@ -53,22 +55,19 @@ export const Crud = () => {
     try {
       const precio = precios[formularioDatos.id - 1]; // Obtén el precio según el ID de la habitación
       const totalPago = calcularDiasYTotal(formularioDatos.fechas.fechaInicio, formularioDatos.fechas.fechaFin, precio); // Calcula el total
-    
-      // Construir datos del huésped con el número de habitación
+
       const datosHuesped = {
         ...formularioDatos.datosHuesped,
         numeroHabitacion: formularioDatos.id // Asigna el ID de la habitación
       };
-  
-      // Construir fechas con número de habitación y número de huésped
+
       const datosFechas = {
         ...formularioDatos.fechas,
         numeroHabitacion: formularioDatos.id,
         numeroHuesped: formularioDatos.id, // Asume que el ID del huésped es igual al ID de la habitación
         totalPago // Agrega el total calculado
       };
-  
-      // Envía los datos al backend
+
       const resultado1 = await clienteAxios.post('/reserva/huesped', datosHuesped);
       const resultado2 = await clienteAxios.post('/reservacion/fechas', datosFechas);
   
@@ -76,29 +75,67 @@ export const Crud = () => {
       console.log('Resultado fechas:', resultado2);
       alert('Datos guardados correctamente');
       await traerDatosHabitaciones();
-    } catch (error) {
+      setBtnCrear(false); 
+    }catch (error) {
       console.error('Error al enviar datos:', error.response ? error.response.data : error.message);
       alert('Ocurrió un error al guardar los datos.');
     }
   };
   
-  
-  const actualizarDatos = async(e)=>{
+  const actualizarDatos = async (e) => {
     e.preventDefault();
-    try{
-      console.log('vamo a editar');
-    }catch(error){
-      console.log(error);
+  
+    if (!formularioDatos.id) {
+      alert('Por favor, selecciona una habitación antes de editar.');
+      return;
     }
-  }
+  
+    try {
+      const precio = precios[formularioDatos.id - 1]; // Obtén el precio según el ID de la habitación
+      const totalPago = calcularDiasYTotal(formularioDatos.fechas.fechaInicio, formularioDatos.fechas.fechaFin, precio); // Calcula el total
+  
+      // Estructura de datos a enviar al backend
+      const datosActualizados = {
+        datosHuesped: {
+          ...formularioDatos.datosHuesped,
+          numeroHabitacion: formularioDatos.id
+        },
+        fechas: {
+          ...formularioDatos.fechas,
+          totalPago
+        }
+      };
+  
+      // Solicitud PUT al endpoint correspondiente
+      const respuesta = await clienteAxios.put(`/reserva/huesped/completa/${formularioDatos.id}`, datosActualizados);
+  
+      alert('Datos actualizados correctamente');
+      console.log('Respuesta del servidor:', respuesta.data);
+  
+      // Actualizar el estado de habitaciones tras la edición
+      await traerDatosHabitaciones();
+  
+      // Resetear el formulario y el estado relacionado
+      setFormularioDatos({
+        id: '',
+        datosHuesped: { nombre: '', apellidos: '', email: '', telefono: '' },
+        fechas: { fechaInicio: '', fechaFin: '' }
+      });
+      setBtnCrear(false);
+      setHabitacionEditando(null);
+    } catch (error) {
+      console.error('Error al actualizar los datos:', error.response ? error.response.data : error.message);
+      alert('Ocurrió un error al actualizar los datos.');
+    }
+  };
 
   const formatearFecha = (fecha) => {
     if (!fecha) {
-      return ''; // Devuelve una cadena vacía si la fecha no es válida
+      return ''; 
     }
     const fechaObj = new Date(fecha);
     if (isNaN(fechaObj)) {
-      return ''; // Maneja casos en los que la fecha no pueda ser convertida
+      return ''; 
     }
     return fechaObj.toISOString().split('T')[0];
   };
@@ -140,6 +177,7 @@ export const Crud = () => {
       actualizarTotales();
     }
   }, [habitaciones, loading]);
+
   const manejarEditar = (habitacionId) => {
     const habitacionSeleccionada = habitaciones.find(hab => hab.id === habitacionId);
     setFormularioDatos({
@@ -148,7 +186,11 @@ export const Crud = () => {
       fechas: habitacionSeleccionada.fechas
     });
     setHabitacionEditando(habitacionId);
-    setBtnCrear(true); // Cambia el estado a 'editar'
+    if(habitacionSeleccionada.datosHuesped.nombre === ''){
+      setBtnCrear(false);
+      return;
+    }
+    setBtnCrear(true);
   };
 
   const manejarEliminar = async (id) => {
@@ -176,20 +218,20 @@ export const Crud = () => {
 };
 
 
-  const manejarCambioFormulario = (e) => {
-    const { name, value } = e.target;
-    if (['nombre', 'apellidos', 'email', 'telefono'].includes(name)) {
-      setFormularioDatos((prevState) => ({
-        ...prevState,
-        datosHuesped: { ...prevState.datosHuesped, [name]: value }
-      }));
-    } else {
-      setFormularioDatos((prevState) => ({
-        ...prevState,
-        fechas: { ...prevState.fechas, [name]: value }
-      }));
-    }
-  };
+const manejarCambioFormulario = (e) => {
+  const { name, value } = e.target;
+  if (['nombre', 'apellidos', 'email', 'telefono'].includes(name)) {
+    setFormularioDatos((prevState) => ({
+      ...prevState,
+      datosHuesped: { ...prevState.datosHuesped, [name]: value }
+    }));
+  } else {
+    setFormularioDatos((prevState) => ({
+      ...prevState,
+      fechas: { ...prevState.fechas, [name]: value }
+    }));
+  }
+};
 
   const manejarSubmit = (e) => {
     e.preventDefault();
@@ -206,7 +248,7 @@ export const Crud = () => {
       <section className='section-inputs'>
         <img className='logo-panel' src="./imagenesPaginas/logo-negro.png" alt="icono" />
         <div className='contenedor-formulario-crud'>
-          <form className='form-crud' onSubmit={btnCrear? enviarDatos: actualizarDatos}>
+          <form className='form-crud' onSubmit={btnCrear? actualizarDatos : enviarDatos }>
           <fieldset>
             <label className='label-crud' htmlFor="num">N° Habitacion</label>
             <input
@@ -281,7 +323,9 @@ export const Crud = () => {
                 onChange={manejarCambioFormulario}
               />
             </fieldset>
-            <button className='btn-crud' type="submit">Guardar</button>
+            <button className='btn-crud' type="submit">
+              {btnCrear ? 'Editar' : 'Crear'}
+            </button>
           </form>
         </div>
       </section>
@@ -296,7 +340,7 @@ export const Crud = () => {
                 {...habitacion}
                 total={totales[index]}
                 manejarEditar={manejarEditar}
-                manejarEliminar={manejarEliminar} // Pasa la función manejarEliminar
+                manejarEliminar={manejarEliminar}
               />
             </div>
           ))}
