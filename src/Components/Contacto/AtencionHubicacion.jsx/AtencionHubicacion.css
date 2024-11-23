@@ -7,19 +7,12 @@ html{
     box-sizing: border-box;
     font-size: 62.5%;
 }
-*,*::before, *::after{
-    box-sizing: inherit;
-}
+
 
 li{
     list-style: none;
 }
-h1,h2,h3,h4{
-    font-weight: 900;
-}
-h1{
-    font-size: 4.4rem;
-}
+
 h2{
     font-size: 3.6rem;
 }
@@ -37,17 +30,82 @@ h4{
 p{
     font-size: 2rem;
 }
-img{
-    max-width: 100%;
-    display: block;
-    height: auto;
+
+.section-contacto {
+    /* background-image: url(./images/fondoContacto.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10rem;
 }
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+.mapa{
+    width: 90%;
+    margin: 3rem auto;
+    box-shadow: 2px 1px 20px black;
+}
+h2 {
+    font-size: 3.6rem;
+}
+h3 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+p {
+    font-size: 2rem;
+}
+.contenedor-formulario {
+    max-width: 500px;
+    background-color: #fcfafa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(253, 250, 250, 0.1);
+    padding: 1rem 3rem;
+    margin: 0 2rem;
 }
 
+.subtittle {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.subtittle {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+h2 {
+    font-size: 3.6rem;
+}
+.horario-dias{
+    color: white;
+}
+.form-contacto{
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 2rem;
+}
+input, textarea{
+    width: 100%;
+}
+.campo {
+    margin-bottom: 20px;
+}
+.campo label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+.campo button {
+    background-color: #8B0E0E;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
 .contenedor {
     max-width: 1400px;
     width: 92%;
@@ -70,32 +128,12 @@ body {
     margin-bottom: 1rem;
 }
 
- /* Estilos CSS */
- #map-contenedor {
-    width: 100%; 
-    height: 500px;
-    justify-items: center;
-    align-items: center;
-    margin-bottom: 9rem;
-}
-
 /* Estilos para hacer que el mapa sea responsive */
 iframe {
     width: 100%;
     border-radius: 20px;
 }
 
-/* Media query para pantallas más pequeñas */
-@media (max-width: 768px) {
-    #map-contenedor {
-        height: 30vh; /* Disminuir la altura del mapa para pantallas más pequeñas */
-    }
-}
-@media(width<420px){
-    #map-contenedor{
-        height: 100%;
-    }
-}
 
 .horario-flex{
     display: flex;
@@ -110,13 +148,9 @@ iframe {
         padding: 0;
     }
 }
-.img-horario{
-    width: 300px;
-}
 .horario{
     width: 400px;
     height: 300px;
-    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;

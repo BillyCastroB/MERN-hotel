@@ -4,21 +4,38 @@ export const MainInicio = () => {
   return (
     <>
     <main className="">
-        <section className="servicios container">
-            <div className="servicios-box1">
-                <img className="servicios-img" src="./imagenesPaginas/vistaExterior.webp" alt="Servicios"/>
-            </div>
+        <section className="servicios">
             <div className="servicios-box2">
-                <h3 className="servicios-titulo text-center">SMART TV CON CABLE / TELEFONO / WIFI ALTA VELOCIDAD</h3>
-                <p className="servicios-text">Todas las habitaciones cuentan con TV CABLE y todos los canales disponibles. Garantizamos su buena atención, contamos con el servicio de WI-FI de alta velocidad gratis en las habitaciones y en todo el hotel. Siéntete cómodo con el servicio de baño privado, agua fría y caliente en todas las habitaciones, también contamos con estacionamiento.
-                </p>
-                <div>
-                    {/* <img src="images/iconos/image-removebg-preview (17).png" alt=""/> */}
-                </div>
+                <p className='servicios-texto'>Calidad en Todas Nuestras Habitaciones</p>
+                <h3 className="servicios-titulo text-center">   
+                Disfruta de espacios modernos y funcionales, diseñados para brindar     comodidad y elegancia.
+                </h3>
+            </div>
+            <div className='servicios-box1'>
+                <img className="servicios-img" src="./imagenesPaginas/hotelsin_fondo.png" alt="Servicios"/>
             </div>
         </section>
         
-        <section className="container">
+        <section className='my'>
+            <div className='grid-mid'>
+                <div className='cont1 cont-img'>
+                    <img className='img-cont1' src="./imagenesPaginas/vista1.webp" alt="imagen-ref1" />
+                </div>
+                <div className='cont2'>
+                    <img className='estrella' src="./imagenesPaginas/estrella.png" alt="imagen-adorno" />
+                    <h3>Si lo puedes imaginar <br /> ..lo puedes programar</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas officiis nesciunt corporis autem optio repellendus consequuntur consequatur eum accusantium.
+                    </p>
+                </div>
+                <div className='cont3 cont-img'>
+                    <img className='img-cont3' src="./imagenesPaginas/vista2.jpg" alt="imagen-ref1" />
+                </div>
+            </div>
+        </section>
+
+
+        {/* <section className="container">
             <div className="atencion-grid">
                 <div className="atencion-img" data-aos="fade-right" data-aos-duration="2000">
                     <img src="./imagenesPaginas/atencion2.webp" alt=""/>
@@ -30,7 +47,7 @@ export const MainInicio = () => {
                     <p className="atencion-descripcion">Nuestro hotel combina diseño urbano y comercial para ofrecer un ambiente moderno y acogedor. Las áreas comunes están diseñadas para brindar una experiencia visualmente atractiva y funcional, ideal tanto para viajeros de negocios como para turistas.El diseño arquitectónico del hotel combina elementos contemporáneos y tradicionales, creando una fachada impactante que se integra perfectamente en el entorno urbano. La modernidad de nuestra estructura refleja un estilo elegante y sofisticado.Los interiores del hotel están diseñados para ser funcionales y estéticamente agradables. Los espacios comunes, como el lobby y las áreas de descanso, están equipados con muebles cómodos y decoraciones modernas que crean un ambiente acogedor y relajante.</p>
                 </div>
             </div>
-        </section>
+        </section> */}
     </main>
 
     </>

@@ -3,8 +3,13 @@
     padding: 5rem 2rem;
     margin: 0 2rem;
 }
+.tituloPortadaContacto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5rem 0;
+}
 .subtittle {
-    text-align: center;
     margin-bottom: 1rem;
 }
 h2 {
@@ -15,65 +20,15 @@ h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
-.section-contacto {
-    /* background-image: url(./images/fondoContacto.jpg); */
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 600px;
+.grid-contactos{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+}
+.grid-contactos div{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 10rem;
-}
-.contacto-info {
-    background-color: white;
-    padding: 5rem 2rem;
-    margin: 0 2rem;
-}
-h3 {
-    font-size: 2.8rem;
-    margin-bottom: 0.5rem;
-}
-p {
-    font-size: 2rem;
-}
-.contenedor-formulario {
-    max-width: 500px;
-    background-color: #fcfafa;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(253, 250, 250, 0.1);
-    padding: 1rem 3rem;
-    margin: 0 2rem;
-}
-
-.subtittle {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.subtittle {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-h2 {
-    font-size: 3.6rem;
-}
-.campo {
-    margin-bottom: 20px;
-}
-.campo label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 2rem;
-}
-h2 {
-    font-size: 3.6rem;
-}
-.campo button {
-    background-color: #8B0E0E;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 3px;
-    cursor: pointer;
+    padding: 3rem;
+    border-radius: 7px;
 }

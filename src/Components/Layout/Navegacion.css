@@ -5,6 +5,7 @@ a{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     letter-spacing: 2px;
     color: white;
+    cursor: pointer;
 }
 
 header{
@@ -13,20 +14,17 @@ header{
 .btn-admin{
     border: none;
     cursor: pointer;
+    background-color: transparent;
 }
 .icono-admin{
     width: 40px;
     height: 40px;
 }
 .cabecera-navegacion{
-    background-color: transparent;
-    position: sticky;
-    top: 0;
-    height: 50px;
     width: 100;
     display: flex;
     justify-content: space-around;
-    box-shadow: 1px 1px 10px rgb(63, 63, 63);
+    padding: 20px;
 }
 .img-logo{
     width: 100px;

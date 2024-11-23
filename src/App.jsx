@@ -6,7 +6,7 @@ import { Habitaciones } from './Components/Habitaciones/Habitaciones';
 import { ReservaHabitacion } from './Components/Habitaciones/ReservaHabitacion/ReservaHabitacion';
 import { Admin } from './Components/Admin/Admin';
 import { Crud } from './Components/Admin/Crud/Crud';
-import { ClienteState } from './context/clienteContext/clienteState';
+import { ClienteState } from './context/clienteContext/ClienteState';
 import { DisponibleState } from './context/disponibilidad/DisponibleState';
 import { useContext } from 'react';
 import { Boleta } from './Components/Habitaciones/boletaHotel/Boleta';

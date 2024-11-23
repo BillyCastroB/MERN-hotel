@@ -1,15 +1,20 @@
 import React from 'react'
+import './Habitaciones.css';
 import { Footer } from '../Layout/Footer'
 import { Habitacion } from './Habitacion/Habitacion'
 import { Navegacion } from '../Layout/Navegacion'
 import { db } from '../../db/db'
+import { PortadaHabitacion } from './PortadaHabitacion/PortadaHabitacion'
 
 export const Habitaciones = () => {
 
   return (
     <>
+      <div className='portadaHabitaciones'>
         <Navegacion/>
-        <h1 className="titulo-habitaciones text-center">HABITACIONES</h1>
+        
+        <PortadaHabitacion/>
+      </div>
         {
           db.map(habitacion=>(
             <Habitacion

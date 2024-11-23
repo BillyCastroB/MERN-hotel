@@ -1,8 +1,21 @@
-.servicios{
-    display: grid;
-    grid-template-columns: 40% 60%;
-    margin: 5rem;
+.my{
+    margin: 5rem 0;
 }
+.servicios{
+    background: rgb(23,51,73);
+    background: linear-gradient(71deg, rgba(23,51,73,1) 30%, rgba(88,140,188,1) 70%);
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 12rem 5rem 3rem 5rem;
+    border-radius: 20px;
+}
+.servicios-img{
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 20px 0;
+    width: 80%;
+}
+
 @media(width<=768px){
     .servicios{
         display: block;
@@ -21,32 +34,83 @@
 }
 
 .servicios-box1{
-    border-radius: 50%;
+    height: 100%;
+    z-index: 2;
+    position: relative;
 }
+
 .servicios-box2{
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 3rem 2rem;
 }
 
-
+.servicios-texto{
+    font-size: 12px;
+}
 .servicios-titulo{
     margin-bottom: 3rem;
-}
-.servicios-text {
-    width: 90%;
-    margin-bottom: 1.5rem;
+    color: rgb(221, 220, 200);
+    font-family: "Playfair Display", serif;
+    letter-spacing: 2px;
+    font-style: italic;
+    font-weight: 300;
 }
 
-.servicios > div:last-child {
+.grid-mid{
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-rows: repeat(4, 100px);
+}
+.cont-img img{
+    height: 100%;
+    width: 100%;
+}
+.cont1{
+    grid-row: 1/3;
+    overflow: hidden;
+}
+.img-cont1{
+    position: relative;
+    left: -50px;
+    border-radius: 0 10px 10px 0;
+}
+.cont2{
+    grid-row: 1/5;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
+    font-family: "Playfair Display", serif;
+    letter-spacing: 1px;
+    text-align: center;
 }
-.servicios > div:first-child {
-        border: 50%;
+.cont2 h3{
+    margin: 2rem 0;
 }
+.estrella{
+    width: 50px;
+    margin: 0 auto;
+}
+.cont3{
+    overflow: hidden;
+    grid-row: 3/5;
+    grid-column: 3/4;
+}
+.img-cont3{
+    position: relative;
+    left: 50px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+
+
+
+
+
 
 
 .atencion-grid{

@@ -43,18 +43,15 @@ img{
     width: 92%;
     margin: 0 auto;
     padding: 20px;
-}
-.enlace{
-    color: black !important;
-}
-.enlace-habitaciones{
-    color: #8B0E0E !important;
+    background-color: lightgray;
+    margin-bottom: 2rem;
+    box-shadow: 2px 3px 15px;
+    border-radius: 20px;
+    margin-top: 4rem;
 }
 
-main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.enlace-habitaciones{
+    color: #8B0E0E !important;
 }
 
 
@@ -101,7 +98,15 @@ main{
     height: 100%;
     object-fit: cover;
 }
-
+.subtitulo-habitacion{
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+.descripcion-habitacion{
+    padding: 1rem 2rem;
+}
 /* posicionamiento imagenes */
 .vc1{
     grid-column: 1 / 3;

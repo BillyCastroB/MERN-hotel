@@ -1,12 +1,11 @@
 import React from 'react'
-import './Portada.css';
-export const Portada = () => {
+import './PortadaHabitacion.css';
+export const PortadaHabitacion = () => {
   return (
     <>
         <div className="hero">
-
             <div className='degradado'>
-              HOTEL EL PALOMAR
+              Habitaciones
               <p>SISTEMA WEB</p>
             </div>
         </div>
