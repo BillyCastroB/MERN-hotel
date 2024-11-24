@@ -8,9 +8,14 @@ import { ClienteContext } from '../../../context/clienteContext/clienteContext';
 export const ReservaHabitacion = () => {
   const navigate = useNavigate();
   const clienteContexto = ClienteContext;
-  const { confirmarHuesped, confirmarHabitacion, confirmarFechas } = useContext(clienteContexto);
+  const { confirmarHuesped, confirmarFechas } = useContext(clienteContexto);
+  const habitacionesContext = useContext(HabitacionContext);
+  const { habitacion, fechas } = habitacionesContext; // Obtenemos las fechas del contexto
+  const {id, precio}=habitacion;
+  const {diaFin, diaInicio} = fechas;
+
   const [datosHuesped, setDatosHuesped] = useState({
-    numeroHabitacion: '', // Inicialmente vacío
+    numeroHabitacion: habitacion?.id, // Inicialmente vacío
     nombre: '',
     apellidos: '',
     email: '',
@@ -25,16 +30,13 @@ export const ReservaHabitacion = () => {
   });
   const [datosFechas, setDatosFechas] = useState({
     numeroHuesped: '',
-    numeroHabitacion: '',
+    numeroHabitacion: habitacion?.id,
     fechaInicio: '',
     fechaFin: '',
     totalPago: 0
   });
   const [totalPagar, setTotalPagar] = useState(0);
-  const habitacionesContext = useContext(HabitacionContext);
-  const { habitacion, fechas } = habitacionesContext; // Obtenemos las fechas del contexto
-  const {id, precio}=habitacion;
-  const {diaFin, diaInicio} = fechas;
+
   const [nombreHuesped, setNombre] = useState('');
   const [apellidosHuesped, setApellidos] = useState('');
   const [emailHuesped, setEmail] = useState('');
@@ -79,7 +81,8 @@ export const ReservaHabitacion = () => {
     setNombre(value);
     setDatosHuesped((prevDatos) => ({
       ...prevDatos,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      numeroHabitacion: habitacion
     }));
   };
 
@@ -89,7 +92,8 @@ export const ReservaHabitacion = () => {
     setApellidos(value);
     setDatosHuesped((prevDatos) => ({
       ...prevDatos,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      numeroHabitacion: habitacion
     }));
   };
 
@@ -99,7 +103,8 @@ export const ReservaHabitacion = () => {
     setEmail(value);
     setDatosHuesped((prevDatos) => ({
       ...prevDatos,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      numeroHabitacion: habitacion
     }));
   };
 
@@ -109,7 +114,8 @@ export const ReservaHabitacion = () => {
     setTelefono(value);
     setDatosHuesped((prevDatos) => ({
       ...prevDatos,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      numeroHabitacion: habitacion
     }));
   };
 
@@ -125,43 +131,17 @@ export const ReservaHabitacion = () => {
       return;
     }
     setErrorVacios(false);
-    
-    
 
     enviarDatosHuesped();
   };
 
-  const enviarDatosHuesped = (e) => {
-    confirmarHuesped(datosHuesped);
+  const enviarDatosHuesped = () => {
+    confirmarHuesped({
+      ...datosHuesped,
+      numeroHabitacion: habitacion.id // Solo el ID
+    });
   };
 
-  const confirmarYEnviarHabitacion = (e) => {
-    e.preventDefault();
-
-    const idHabitacion = habitacion.id;
-    const nuevaHabitacion = {
-      numero: idHabitacion,
-      nombre: habitacion.nombre,
-      precio: habitacion.precio,
-      capacidad: habitacion.capacidad,
-      disponible: false
-    };
-
-    setDatosHabitacion(nuevaHabitacion);
-
-    setDatosHuesped((prevDatos) => ({
-      ...prevDatos,
-      numeroHabitacion: idHabitacion
-    }));
-    setDatosFechas({
-      numeroHuesped: id,
-      numeroHabitacion: id,
-      fechaInicio: diaInicio,
-      fechaFin: diaFin,
-      totalPago: totalPagar
-    })
-    confirmarHabitacion(nuevaHabitacion);
-  };
 
   const enviarDatosFechas = (e) => {
     e.preventDefault();
@@ -184,6 +164,7 @@ export const ReservaHabitacion = () => {
 
   const generarBoleta = ()=>{
     navigate('/boleta');
+    localStorage.setItem('habitacion', datosFechas.numeroHabitacion);
   }
   return habitacion === null ? (
     <p>Habitación no seleccionada</p>
@@ -201,11 +182,6 @@ export const ReservaHabitacion = () => {
               <p className="habitacion-descripcion">{habitacion.descripcion}</p>
               <div className="img-habitacion-seleccionada">
                 <img src={`imagenesHabitaciones/${habitacion.imagen_1}`} alt="Imagen de la habitación" />
-              </div>
-              <div className="confimar-habitacion">
-                <button onClick={confirmarYEnviarHabitacion} className="btn-enviar">
-                  Confirmar Habitación
-                </button>
               </div>
             </form>
           </div>

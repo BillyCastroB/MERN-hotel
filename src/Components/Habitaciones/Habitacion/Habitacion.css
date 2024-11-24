@@ -137,8 +137,9 @@ img{
     font-size: 15px;
 }
 .Nodisponible{
-    background-color: rgb(201, 22, 22);
+    background-color: rgb(141, 22, 22);
     color: white;
+    padding: 10px;
 }
 .verObjDisponibles{
     width: 100%;

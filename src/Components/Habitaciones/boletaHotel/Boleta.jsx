@@ -1,11 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Boleta.css';
+import clienteAxios from '../../../../../../MERN-adminProyectos/cliente/config/axios';
 
 export function Boleta() {
+  const numero = localStorage.getItem('habitacion');
+  const [datosReserva, setDatosReserva] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const imprimir = ()=>{
+  useEffect(() => {
+    const preparaDatos = async () => {
+      try {
+        // Realizar ambas solicitudes en paralelo
+        const [respuestaFechas, respuestaHuesped] = await Promise.all([
+          clienteAxios.get(`/reservacion/fechas/${numero}`),
+          clienteAxios.get(`/reserva/huesped/${numero}`),
+        ]);
+
+        // Construir el objeto con los datos obtenidos
+        const datos = {
+          nombreCompleto: respuestaHuesped.data[0]?.nombre || 'No disponible',
+          apellidos: respuestaHuesped.data[0]?.apellidos || 'No disponible',
+          email: respuestaHuesped.data[0]?.email || 'No disponible',
+          telefono: respuestaHuesped.data[0]?.telefono || 'No disponible',
+          numeroHabitacion: numero,
+          precio: respuestaFechas.data[0]?.precio || 'N/A',
+          nombreHabitacion: respuestaFechas.data[0]?.nombreHabitacion || 'N/A',
+          capacidad: respuestaFechas.data[0]?.capacidad || 'N/A',
+          fechaInicio: respuestaFechas.data[0]?.fechaInicio || 'N/A',
+          fechaFin: respuestaFechas.data[0]?.fechaFin || 'N/A',
+          totalPagar: respuestaFechas.data[0]?.total || 'N/A',
+        };
+
+        // Mostrar los datos en la consola
+        console.log('Datos de la reserva:', datos);
+
+        // Actualizar el estado con los datos
+        setDatosReserva(datos);
+      } catch (error) {
+        console.error('Error al obtener los datos:', error);
+        setDatosReserva(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    preparaDatos();
+  }, [numero]);
+
+  const imprimir = () => {
     window.print();
+  };
+
+  if (loading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+        <p>Preparando boleta...</p>
+      </div>
+    );
   }
+
+  if (!datosReserva) {
+    return <p>Error al cargar los datos. Intenta nuevamente.</p>;
+  }
+
   return (
     <div className="container">
       <div className="boarding-pass">
@@ -113,4 +171,3 @@ export function Boleta() {
     </div>
   );
 }
-
