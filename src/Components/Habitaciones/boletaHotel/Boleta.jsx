@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import QRCode from "react-qr-code";
 import './Boleta.css';
 import clienteAxios from '../../../../../../MERN-adminProyectos/cliente/config/axios';
 
@@ -19,6 +20,7 @@ export function Boleta() {
 
         // Construir el objeto con los datos obtenidos
         const datos = {
+          id: respuestaHuesped.data[0]?._id,
           nombreCompleto: respuestaHuesped.data[0]?.nombre || 'No disponible',
           apellidoscompleto: respuestaHuesped.data[0]?.apellidos || 'No disponible',
           email: respuestaHuesped.data[0]?.email || 'No disponible',
@@ -118,8 +120,10 @@ export function Boleta() {
               <span className="label">Total a pagar:</span>
               <span className="value" style={{ fontWeight: 'bold' }}>{datosReserva.totalPagar}</span>
             </div>
+            <div className="label-value qr">
+              {<QRCode value={ "Codigo de reserva = " + datosReserva.id} />}
+            </div>
           </div>
-          <div className="barcode"></div>
         </div>
       </div>
   

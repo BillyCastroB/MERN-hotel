@@ -130,3 +130,12 @@ body {
     display: none; /* Oculta el botón de impresión en la versión impresa */
   }
 }
+.qr{
+  margin-left: 10px;
+  width: 60px;
+  height: 60px;
+}
+.qr svg{
+  width: 60px;
+  height: 60px;
+}
