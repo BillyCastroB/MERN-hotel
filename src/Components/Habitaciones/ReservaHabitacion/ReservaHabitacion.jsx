@@ -73,7 +73,7 @@ export const ReservaHabitacion = () => {
     
     setTotalPagar(diferenciaEnDias* precio);
 
-  }, [datosFechas.fechaInicio, datosFechas.fechaFin] )
+  }, [datosFechas.fechaInicio, datosFechas.fechaFin, datosHuesped] )
 
   const nombreChange = (e) => {
     const { value } = e.target;

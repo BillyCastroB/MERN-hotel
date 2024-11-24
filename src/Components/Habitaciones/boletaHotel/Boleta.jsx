@@ -11,29 +11,31 @@ export function Boleta() {
     const preparaDatos = async () => {
       try {
         // Realizar ambas solicitudes en paralelo
-        const [respuestaFechas, respuestaHuesped] = await Promise.all([
+        const [respuestaFechas, respuestaHuesped, respuestaHabitacion] = await Promise.all([
           clienteAxios.get(`/reservacion/fechas/${numero}`),
           clienteAxios.get(`/reserva/huesped/${numero}`),
+          clienteAxios.get(`/habitacion/disponibilidad/${numero}`),
         ]);
 
         // Construir el objeto con los datos obtenidos
         const datos = {
           nombreCompleto: respuestaHuesped.data[0]?.nombre || 'No disponible',
-          apellidos: respuestaHuesped.data[0]?.apellidos || 'No disponible',
+          apellidoscompleto: respuestaHuesped.data[0]?.apellidos || 'No disponible',
           email: respuestaHuesped.data[0]?.email || 'No disponible',
           telefono: respuestaHuesped.data[0]?.telefono || 'No disponible',
           numeroHabitacion: numero,
-          precio: respuestaFechas.data[0]?.precio || 'N/A',
-          nombreHabitacion: respuestaFechas.data[0]?.nombreHabitacion || 'N/A',
-          capacidad: respuestaFechas.data[0]?.capacidad || 'N/A',
+          precio: respuestaHabitacion.data?.precio || 'N/A',
+          nombreHabitacion: respuestaHabitacion.data?.nombre || 'N/A',
+          capacidad: respuestaHabitacion.data?.capacidad || 'N/A',
           fechaInicio: respuestaFechas.data[0]?.fechaInicio || 'N/A',
           fechaFin: respuestaFechas.data[0]?.fechaFin || 'N/A',
-          totalPagar: respuestaFechas.data[0]?.total || 'N/A',
+          totalPagar: respuestaFechas.data[0]?.totalPago || 'N/A',
         };
 
         // Mostrar los datos en la consola
         console.log('Datos de la reserva:', datos);
-
+        console.log('Respuesta Habitacion:', respuestaHabitacion.data);
+        console.log('Respuesta Habitacion:', respuestaFechas.data);
         // Actualizar el estado con los datos
         setDatosReserva(datos);
       } catch (error) {
