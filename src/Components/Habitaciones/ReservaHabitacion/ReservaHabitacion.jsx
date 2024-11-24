@@ -152,7 +152,10 @@ export const ReservaHabitacion = () => {
       fechaFin: datosFechas.fechaFin,
       totalPago: totalPagar
     })
-    confirmarFechas(datosFechas);
+    confirmarFechas({
+      ...datosFechas,
+      totalPago: totalPagar,
+    });
   };
 
   const limpiarVolver = ()=>{

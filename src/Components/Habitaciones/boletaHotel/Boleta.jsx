@@ -79,50 +79,50 @@ export function Boleta() {
             {/* Fila 1 */}
             <div className="label-value" style={{ gridColumn: 'span 4' }}>
               <span className="label">Nombre Completo:</span>
-              <span className="value">JOHN SMITH</span>
+              <span className="value">{datosReserva.nombreCompleto} {datosReserva.apellidoscompleto}</span>
             </div>
-
+  
             {/* Fila 2 */}
             <div className="label-value">
               <span className="label">Numero de habitacion:</span>
-              <span className="value">1</span>
+              <span className="value">{datosReserva.numeroHabitacion}</span>
             </div>
             <div className="label-value"></div>
             <div className="label-value">
-              <span className="label">Precio:</span>
-              <span className="value">150</span>
+              <span className="label">Precio por Noche:</span>
+              <span className="value">{datosReserva.precio}</span>
             </div>
             <div className="label-value"></div>
-
+  
             {/* Fila 3 */}
             <div className="label-value">
               <span className="label">Nombre de la habitacion:</span>
-              <span className="value">Habitacion Pareja</span>
+              <span className="value">{datosReserva.nombreHabitacion}</span>
             </div>
             <div className="label-value"></div>
             <div className="label-value">
               <span className="label">Capacidad:</span>
-              <span className="value">2</span>
+              <span className="value">{datosReserva.capacidad}</span>
             </div>
             <div className="label-value">
-              <span className="label">Fecha de inicio</span>
-              <span className="value">2024-11-15</span>
+              <span className="label">Fecha de inicio:</span>
+              <span className="value">{datosReserva.fechaInicio.slice(0,10)}</span>
             </div>
-
+  
             {/* Fila 4 */}
             <div className="label-value">
-              <span className="label">Fecha fin</span>
-              <span className="value" style={{ fontWeight: 'bold' }}>2024-11-20</span>
+              <span className="label">Fecha fin:</span>
+              <span className="value" style={{ fontWeight: 'bold' }}>{datosReserva.fechaFin.slice(0,10)}</span>
             </div>
             <div className="label-value">
-              <span className="label">Total a pagar</span>
-              <span className="value" style={{ fontWeight: 'bold' }}>750</span>
+              <span className="label">Total a pagar:</span>
+              <span className="value" style={{ fontWeight: 'bold' }}>{datosReserva.totalPagar}</span>
             </div>
           </div>
           <div className="barcode"></div>
         </div>
       </div>
-
+  
       <div className="boarding-pass2">
         <div className="header2">
           <h2>Resumen de la reserva</h2>
@@ -133,43 +133,43 @@ export function Boleta() {
             {/* Fila 1 */}
             <div className="label-value02" style={{ gridColumn: 'span 4' }}>
               <span className="label02">Nombre completo:</span>
-              <span className="value02">JOHN SMITH</span>
+              <span className="value02">{datosReserva.nombreCompleto} {datosReserva.apellidoscompleto}</span>
             </div>
-
+  
             {/* Fila 2 */}
             <div className="label-value02">
               <span className="label02">Numero de habitacion:</span>
-              <span className="value02">1</span>
+              <span className="value02">{datosReserva.numeroHabitacion}</span>
             </div>
-
+  
             {/* Fila 3 */}
             <div className="label-value02"></div>
             <div className="label-value02"></div>
             <div className="label-value02"></div>
-
+  
             <div className="label-value02">
               <span className="label02">Nombre de habitacion:</span>
-              <span className="value02">Habitacion Pareja</span>
+              <span className="value02">{datosReserva.nombreHabitacion}</span>
             </div>
             <div className="label-value02"></div>
             <div className="label-value02"></div>
             <div className="label-value02"></div>
             <div className="label-value02">
               <span className="label02">Fecha de inicio:</span>
-              <span className="value02">2024-11-15</span>
+              <span className="value02">{datosReserva.fechaInicio.slice(0,10)}</span>
             </div>
             <div className="label-value02">
               <span className="label02">Fecha fin:</span>
-              <span className="value02">2024-11-20</span>
+              <span className="value02">{datosReserva.fechaFin.slice(0,10)}</span>
             </div>
             <div className="label-value02">
               <span className="label02">Capacidad:</span>
-              <span className="value02" style={{ fontWeight: 'bold' }}>2</span>
+              <span className="value02" style={{ fontWeight: 'bold' }}>{datosReserva.capacidad}</span>
             </div>
           </div>
         </div>
-        <button className='btn-imprimir' onClick={imprimir}>Imprimir</button>
+        <button className="btn-imprimir" onClick={imprimir}>Imprimir</button>
       </div>
     </div>
-  );
+  );  
 }
