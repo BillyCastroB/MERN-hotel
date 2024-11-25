@@ -4,57 +4,73 @@ import './Footer.css';
 export const Footer = () => {
   return (
     <>
+      
       <footer>
-        <div className="footer-content">
-          <div>
-            <img src="../images/logo/logo-blanco.png" alt="Logo del sitio" />
-            <h4 className="t4footer">Sobre nosotros</h4>
-            <p>Un ambiente acogedor y sofisticado que te invita a relajarte.</p>
-          </div>
-          <div>
-            <h4 className="t4footer">Encuéntranos:</h4>
-            <div className="icons">
-              <a href="#"><i className="fas fa-map-marker-alt"></i>El Tambo</a>
-              <a href="#"><i className="fas fa-phone"></i>983026278</a>
-              <a href="#"><i className="fas fa-envelope"></i>palomar@gmail.com</a>
+        <div className="footer-contenedor">
+          {/* Sección "Sobre Nosotros" con el logo dentro */}
+          <div className="footer-nosotros">
+            <div className="footer-logo-container">
+              <img src="./imagenesPaginas/logo.png" alt="logo de la empresa" className="footer-logo" />
             </div>
-          </div>
-          <div>
-            <h4 className="t4footer">Links de ayuda</h4>
-            <p className="libro-reclamaciones">
-              <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-book-2" width="32" height="32" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M19 4v16h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12z" />
-                <path d="M19 16h-12a2 2 0 0 0 -2 2" />
-                <path d="M9 8h6" />
-              </svg>
-              <a href='/views/terminoscondiciones'>Términos y condiciones</a>
-            </p>
-            <p className="libro-reclamaciones">
-              <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-book-upload" width="32" height="32" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M14 20h-8a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12v5" />
-                <path d="M11 16h-5a2 2 0 0 0 -2 2" />
-                <path d="M15 16l3 -3l3 3" />
-                <path d="M18 13v9" />
-              </svg>
-              <a href='/views/libroreclamaciones'>Libro de Reclamaciones</a>
+            <h3>Sobre Nosotros</h3>
+            <p>
+              Nos dedicamos a brindar experiencias únicas, combinando comodidad, elegancia y un servicio excepcional.
             </p>
           </div>
-        </div>
-        <hr />
-        <div className="f-end">
-          <div></div>
-          <div className="icons">
-            <a href="#"><i className="fab fa-facebook-f"></i></a>
-            <a href="#"><i className="fab fa-twitter"></i></a>
-            <a href="#"><i className="fab fa-instagram"></i></a>
+
+          {/* Sección Redes Sociales */}
+          <div className="footer-redes">
+            <h3>Conéctate con nosotros</h3>
+            <ul>
+              <li>
+                <img src="./imagenesPaginas/fb.png" alt="Facebook" className="icono-redes" />
+                Facebook
+              </li>
+              <li>
+                <img src="./imagenesPaginas/insta.png" alt="Instagram" className="icono-redes" />
+                Instagram
+              </li>
+              <li>
+                <img src="./imagenesPaginas/tiktok.png" alt="Tiktok" className="icono-redes" />
+                Tiktok
+              </li>
+            </ul>
           </div>
-          <div>
-            <p>2024 © Todos los derechos reservados</p>
+
+          {/* Sección "Importante" */}
+          <div className="footer-important">
+            <h3>Tu opinión es importante</h3>
+            <ul>
+              <li>
+                <img src="./imagenesPaginas/libro.png" alt="Libro de reclamaciones" className="icono-redes" />
+                Libro de reclamaciones
+              </li>
+            </ul>
+          </div>
+
+          {/* Sección Contacto */}
+          <div className="footer-contact">
+            <h3>Contáctanos</h3>
+            <p>
+              <img src="./imagenesPaginas/ubi.png" alt="Ubicación" className="icono-contacto" />
+              Av. Mariscal Castilla 233, San Agustín de Cajas 12100, Perú · 05 km
+            </p>
+            <p>
+              <img src="./imagenesPaginas/celular.png" alt="Celular" className="icono-contacto" />
+              N° de celular: 921851630
+            </p>
+          </div>
+
+          {/* Sección Horario */}
+          <div className="footer-atencion">
+            <h3>Horario de Atención</h3>
+            <p>De Lunes a Viernes</p>
+            <p>De 7am - 7pm</p>
           </div>
         </div>
       </footer>
+
+
     </>
   );
 }
