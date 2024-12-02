@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Crud.css';
 import { Reserva } from './Reserva';
-import { Navegacion } from '../../Layout/Navegacion';
+import {NavegacionDark } from '../../Layout/NavegacionDark';
 import { clienteAxios } from '../../../../config/clienteAxios';
 
 export const Crud = () => {
@@ -73,7 +73,7 @@ export const Crud = () => {
   
       console.log('Resultado huesped:', resultado1);
       console.log('Resultado fechas:', resultado2);
-      alert('Datos guardados correctamente');
+      alert('Reserva exitosa, se envio un mensaje de confirmación a su email');
       await traerDatosHabitaciones();
       setBtnCrear(false); 
     }catch (error) {
@@ -243,109 +243,129 @@ const manejarCambioFormulario = (e) => {
   };
 
   return (
-    <div className='contenedor-crud'>
-      <Navegacion />
-      <section className='section-inputs'>
+    <div className='container-all'>
+      <aside>
         <img className='logo-panel' src="./imagenesPaginas/logo-negro.png" alt="icono" />
-        <div className='contenedor-formulario-crud'>
-          <form className='form-crud' onSubmit={btnCrear? actualizarDatos : enviarDatos }>
-          <fieldset>
-            <label className='label-crud' htmlFor="num">N° Habitacion</label>
-            <input
-              type="number"
-              name="id"
-              id="num"
-              value={formularioDatos.id}
-              disabled // Hace el campo no editable
-            />
-          </fieldset>
-            <fieldset>
-              <label className='label-crud' htmlFor="nombre">Nombre</label>
-              <input
-                placeholder='Nombre'
-                type="text"
-                name='nombre'
-                id='nombre'
-                value={formularioDatos.datosHuesped.nombre}
-                onChange={manejarCambioFormulario}
-              />
-            </fieldset>
-            <fieldset>
-              <label className='label-crud' htmlFor="apellidos">Apellidos</label>
-              <input
-                placeholder='Apellidos'
-                type="text"
-                name='apellidos'
-                id='apellidos'
-                value={formularioDatos.datosHuesped.apellidos}
-                onChange={manejarCambioFormulario}
-              />
-            </fieldset>
-            <fieldset>
-              <label className='label-crud' htmlFor="email">Email</label>
-              <input
-                placeholder='Email'
-                type="email"
-                name='email'
-                id='email'
-                value={formularioDatos.datosHuesped.email}
-                onChange={manejarCambioFormulario}
-              />
-            </fieldset>
-            <fieldset>
-              <label className='label-crud' htmlFor="telefono">Teléfono</label>
-              <input
-                placeholder='Teléfono'
-                type="number"
-                name='telefono'
-                id='telefono'
-                value={formularioDatos.datosHuesped.telefono}
-                onChange={manejarCambioFormulario}
-              />
-            </fieldset>
-            <fieldset>
-              <label className='label-crud' htmlFor="fechaInicio">Fecha Inicio</label>
-              <input
-                type="date"
-                name='fechaInicio'
-                id='fechaInicio'
-                value={formularioDatos.fechas.fechaInicio}
-                onChange={manejarCambioFormulario}
-              />
-            </fieldset>
-            <fieldset>
-              <label className='label-crud' htmlFor="fechaFin">Fecha Fin</label>
-              <input
-                type="date"
-                name='fechaFin'
-                id='fechaFin'
-                value={formularioDatos.fechas.fechaFin}
-                onChange={manejarCambioFormulario}
-              />
-            </fieldset>
-            <button className='btn-crud' type="submit">
-              {btnCrear ? 'Editar' : 'Crear'}
-            </button>
-          </form>
+        <div>
+          <img className='img-aside' src="./public/imagenesPaginas/imagen-aside.jpg" alt="" />
         </div>
-      </section>
+      </aside>
 
-      {loading ? (
-        <div className="spinner">Cargando datos...</div>
-      ) : (
-        <section className='section-valores'>
-          {habitaciones.map((habitacion, index) => (
-            <div key={habitacion.id} className='componenteReserva'>
-              <Reserva
-                {...habitacion}
-                total={totales[index]}
-                manejarEditar={manejarEditar}
-                manejarEliminar={manejarEliminar}
+      <div className='contenedor-crud'>
+        <NavegacionDark/>
+        <section className='section-inputs'>
+          <div className='contenedor-formulario-crud'>
+            <form className='form-crud' onSubmit={btnCrear? actualizarDatos : enviarDatos }>
+            <fieldset className='field-numeroHabitacion'>
+              <label className='label-crud' htmlFor="num">N°</label>
+              <input
+                type="number"
+                name="id"
+                id="num"
+                value={formularioDatos.id}
+                disabled // Hace el campo no editable
               />
-            </div>
-          ))}
+            </fieldset>
+              <fieldset>
+                <label className='label-crud' htmlFor="nombre">Nombre</label>
+                <input
+                  placeholder='Nombre'
+                  type="text"
+                  name='nombre'
+                  id='nombre'
+                  value={formularioDatos.datosHuesped.nombre}
+                  onChange={manejarCambioFormulario}
+                />
+              </fieldset>
+              <fieldset>
+                <label className='label-crud' htmlFor="apellidos">Apellidos</label>
+                <input
+                  placeholder='Apellidos'
+                  type="text"
+                  name='apellidos'
+                  id='apellidos'
+                  value={formularioDatos.datosHuesped.apellidos}
+                  onChange={manejarCambioFormulario}
+                />
+              </fieldset>
+              <fieldset>
+                <label className='label-crud' htmlFor="email">Email</label>
+                <input
+                  placeholder='Email'
+                  type="email"
+                  name='email'
+                  id='email'
+                  value={formularioDatos.datosHuesped.email}
+                  onChange={manejarCambioFormulario}
+                />
+              </fieldset>
+              <fieldset>
+                <label className='label-crud' htmlFor="telefono">Teléfono</label>
+                <input
+                  placeholder='Teléfono'
+                  type="number"
+                  name='telefono'
+                  id='telefono'
+                  value={formularioDatos.datosHuesped.telefono}
+                  onChange={manejarCambioFormulario}
+                />
+              </fieldset>
+              <fieldset>
+                <label className='label-crud' htmlFor="fechaInicio">Fecha Inicio</label>
+                <input
+                  type="date"
+                  name='fechaInicio'
+                  id='fechaInicio'
+                  value={formularioDatos.fechas.fechaInicio}
+                  onChange={manejarCambioFormulario}
+                />
+              </fieldset>
+              <fieldset>
+                <label className='label-crud' htmlFor="fechaFin">Fecha Fin</label>
+                <input
+                  type="date"
+                  name='fechaFin'
+                  id='fechaFin'
+                  value={formularioDatos.fechas.fechaFin}
+                  onChange={manejarCambioFormulario}
+                />
+              </fieldset>
+              <button className='btn-crud' type="submit">
+                {btnCrear ? 'Editar' : 'Crear'}
+              </button>
+            </form>
+          </div>
+          <div className='indice'>
+            <p>N°</p>
+            <p>Nombre</p>
+            <p>Apellidos</p>
+            <p>Numero</p>
+            <p>Email</p>
+            <p>F. Inicio</p>
+            <p>F. Salida</p>
+            <p>Pago</p>
+            <p>Acciones</p>
+          </div>
         </section>
-      )}
+
+        {loading ? (
+          <div className="spinner">Cargando datos...</div>
+        ) : (
+          <section className='section-valores'>
+            {habitaciones.map((habitacion, index) => (
+              <div key={habitacion.id} className='componenteReserva'>
+                <Reserva
+                  {...habitacion}
+                  total={totales[index]}
+                  manejarEditar={manejarEditar}
+                  manejarEliminar={manejarEliminar}
+                />
+              </div>
+            ))}
+          </section>
+        )}
+      </div>
     </div>
+    
   );
 };

@@ -1,10 +1,22 @@
+.container-all{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    background: rgb(233,237,246);
+    background: linear-gradient(149deg, rgba(233,237,246,1) 30%, rgba(200,209,252,1) 70%);
+    padding: 1rem;
+    column-gap: 5px;
+}
+aside div{
+    border-radius: 0px 100px 0 60px;
+    overflow: hidden;
+    display: block;
+    height: 85%;
+}
+.img-aside{
+    height: 100%;
+}
 .contenedor-crud{
-    padding: 0rem 0rem 2.5rem 0rem;
-    background-color: rgb(255, 255, 255);
-/*     background-image: url('../../../../public/imagenesPaginas/fondoPanel.jpeg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
+    padding: 0rem;
 }
 .contenedor-formulario-crud{
     width: 100%;
@@ -52,14 +64,33 @@
     justify-content: center;
     align-items: center;
 }
+.field-numeroHabitacion{
+    width: 25px;
+}
+.indice{
+    display: grid;
+    grid-template-columns: 5% 8% 12% 10% 20% 10% 10% 8% 17%;
+    background-color: #3855d8;
+    padding: 6px 0;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    width: 95%;
+    margin: 10px auto;
+}
+
 .propiedad{
-    font-size: 16px;
+    font-size: 14px;
 }
 .componenteReserva{
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: 5% 8% 12% 10% 20% 10% 10% 8% 17%;
     text-align: center;
-    margin: 25px 0;
+    margin: 25px 10px;
+    background-color: white;
+    padding: 5px 0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px rgba(172, 172, 172, 0.466);
 }
 
 .btn-crud{
@@ -76,4 +107,7 @@
 }
 .section-valores{
     padding: 0px 3rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 1rem 2rem;
+
 }

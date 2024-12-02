@@ -17,14 +17,17 @@
     background-color: #eab308;
     color: white;
     padding: 5px 10px;
+    width: 80px;
 }
 .btn-eliminar{
     background-color: #991b1b;
     color: white;
     padding: 5px 10px;
+    width: 90px;
 }
 .btn-crear{
     background-color: rgb(16, 112, 16);
     color: white;
     padding: 5px 10px;
+    width: 80px;
 }

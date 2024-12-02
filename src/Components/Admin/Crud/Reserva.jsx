@@ -19,7 +19,7 @@ export const Reserva = ({ id, datosHuesped, fechas, total, manejarEditar, maneja
       <p className='propiedad'>{email}</p>
       <p className='propiedad'>{fechaInicio}</p>
       <p className='propiedad'>{fechaFin}</p>
-      <p className='propiedad'>Total: S/{total2 }</p>
+      <p className='propiedad'>S/{total2 }</p>
       <div className='btns-crud'>
         <button 
           onClick={() => manejarEditar(id)} 
