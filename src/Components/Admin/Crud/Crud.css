@@ -6,6 +6,7 @@
     padding: 1rem;
     column-gap: 5px;
 }
+
 aside div{
     border-radius: 0px 100px 0 60px;
     overflow: hidden;
@@ -86,13 +87,19 @@ aside div{
     display: grid;
     grid-template-columns: 5% 8% 12% 10% 20% 10% 10% 8% 17%;
     text-align: center;
-    margin: 25px 10px;
+    margin: 40px 10px;
     background-color: white;
-    padding: 5px 0;
+    padding: 10px 0;
     border-radius: 10px;
     box-shadow: 2px 2px 1px rgba(172, 172, 172, 0.466);
 }
-
+@media(width<=800px){
+    .componenteReserva{
+        grid-template-columns: repeat(2, 2fr);
+        grid-template-rows: repeat(3, 50px);
+        padding: 10px;
+    }
+}
 .btn-crud{
     padding: 0.5rem 1rem;
     background-color: green;
@@ -109,5 +116,31 @@ aside div{
     padding: 0px 3rem;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 1rem 2rem;
-
+    height: 70vh;
+}
+@media(width<=400px){
+    .btns-crud{
+        grid-column: 1/3;
+        margin: 0 auto;
+        margin-top: 15px;
+    }
+}
+@media(width <=1380px ){
+    .componenteReserva{
+        margin: 16px 0;
+    }
+}
+@media(width<=768px){
+    .container-all{
+        display: block;
+    }
+    .img-aside{
+        display: none;
+    }
+    .form-crud{
+        display: block;
+    }
+    .section-valores{
+        height: 100%;
+    }
 }

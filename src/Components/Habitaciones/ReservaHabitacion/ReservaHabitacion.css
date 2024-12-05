@@ -1,3 +1,8 @@
+.td{
+    background: linear-gradient(351deg, rgba(10, 6, 34, 0.897) 0%, rgb(58, 58, 58) 66%);
+    background-size: 200% 200%; /* Hace que el degradado sea más dinámico */
+    animation: gradientAnimation 4s ease infinite;
+}
 h5{
     font-size: 18px;
 }
@@ -41,12 +46,6 @@ progress::-webkit-progress-value {
         gap: 3rem;
     }
 }
-.reserva__habitacion{
-    border-right: 2px solid rgba(40, 40, 40, 0.606);
-}
-.reserva__condiciones{
-    border-left: 2px solid rgba(40, 40, 40, 0.606);
-}
 
 /* datos habitacion */
 .reserva__huesped{
@@ -54,7 +53,7 @@ progress::-webkit-progress-value {
     flex-direction: column;
 }
 .reserva--titulo{
-    color: #075985;
+    color: #ffffff;
 }
 .habitacion-descripcion{
     font-size: 16px;
@@ -84,7 +83,6 @@ progress::-webkit-progress-value {
     background-color: #075985;
 }
 .form__huesped{
-    background-color: #e5e7eb;
     border-radius: 5px;
 }
 .form-div{
@@ -96,6 +94,7 @@ progress::-webkit-progress-value {
     font-size: 15px;
     font-weight: 600;
     margin: 20px 0px 0px 15px;
+    color: floralwhite;
 }
 .form-div input{
     padding: 10px 0 10px 10px;
@@ -104,9 +103,11 @@ progress::-webkit-progress-value {
     width: 95%;
     margin: 0 auto;
     box-shadow: 3px 2px 5px rgb(125, 125, 125);
+    background-color: gray;
+
 }
 input::placeholder {
-    color: #888; 
+    color: #000000; 
     font-style: italic; 
     opacity: 0.7; 
     text-align: left;
@@ -136,4 +137,20 @@ input::placeholder {
 .fecha{
     color: #4c0519;
     font-weight: 400;
+}
+.btn-calcelar-reserva{
+    background-color: transparent;
+    border: none;
+}
+.btn-calcelar-reserva img{
+    width: 50px;
+    height: 50px;
+}
+.btn-imprimir-reserva{
+    background-color: transparent;
+    border: none;
+}
+.btn-imprimir-reserva img{
+    width: 50px;
+    height: 50px;
 }

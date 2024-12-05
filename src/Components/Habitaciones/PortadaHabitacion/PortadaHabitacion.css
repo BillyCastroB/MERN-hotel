@@ -42,12 +42,35 @@
     transition: 0.8s;
 }
 
-.degradado{
-    background: rgb(81,53,49);
-    background: linear-gradient(90deg, rgba(81,53,49,0) 0%, rgba(81,53,49,0.8687850140056023) 20%, rgba(81,53,49,1) 50%, rgba(81,53,49,0.8435749299719888) 80%, rgba(81,53,49,0) 100%);
+@keyframes gradientAnimationExtremo {
+    0% {
+      background-position: 100% 0%; /* Inicia desde el extremo izquierdo */
+    }
+    50% {
+      background-position: 50% 50%; /* Pasa por el centro sin restaurarse */
+    }
+    100% {
+      background-position: 0% 100%; /* Termina en el extremo derecho */
+    }
+  }
+  
+  .degradado {
+    background: rgb(81, 53, 49);
+    background: linear-gradient(
+      90deg,
+      rgba(81, 53, 49, 0) 0%,
+      rgba(81, 53, 49, 0.868) 20%,
+      rgba(81, 53, 49, 1) 50%,
+      rgba(81, 53, 49, 0.843) 80%,
+      rgba(81, 53, 49, 0) 100%
+    );
+    background-size: 200% 200%; /* Amplía el fondo para permitir un movimiento amplio */
+    animation: gradientAnimationExtremo 5s ease-out infinite; /* No restaura hasta que termine toda la animación */
     font-size: 80px;
     color: white;
     padding: 5rem 0;
     width: 100%;
     text-align: center;
-}
+  }
+  
+  

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Navegacion } from '../../Layout/Navegacion';
 import { HabitacionContext } from '../../../context/habitaciones/habitacionContext';
 import { ClienteContext } from '../../../context/clienteContext/clienteContext';
+import { Footer } from '../../Layout/Footer';
 
 export const ReservaHabitacion = () => {
   const navigate = useNavigate();
@@ -172,7 +173,7 @@ export const ReservaHabitacion = () => {
   return habitacion === null ? (
     <p>Habitación no seleccionada</p>
   ) : (
-    <>
+    <div className='td'>
       <Navegacion />
       <div className="contenedor_final">
         <div className="grid_columnas">
@@ -292,11 +293,12 @@ export const ReservaHabitacion = () => {
               </div>
             </form>
 
-            <button onClick={limpiarVolver} type='button'>Calcelar Reserva</button>
-            <button type='button' onClick={generarBoleta}>Generar boleta</button>
+            <button className='btn-calcelar-reserva' onClick={limpiarVolver} type='button'><img src="./imagenesPaginas/cancelar.png" alt="" /></button>
+            <button className='btn-imprimir-reserva' type='button' onClick={generarBoleta}><img src="./imagenesPaginas/print.png" alt="" /></button>
           </div>
         </div>
       </div>
-    </>
+      <Footer/>
+    </div>
   );
 };

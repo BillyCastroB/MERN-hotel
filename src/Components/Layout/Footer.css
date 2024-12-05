@@ -1,6 +1,7 @@
 /* Contenedor principal */
 .footer-contenedor {
-    background: linear-gradient(135deg, #001f3f, #002b5c, #001a35);
+    background: rgb(233,237,246);
+background: linear-gradient(351deg, rgb(110, 110, 110) 0%, rgb(18, 19, 29) 66%);
     background-size: 200% 200%; /* Hace que el degradado sea más dinámico */
     animation: gradientAnimation 5s ease infinite;
     color: white;
@@ -11,6 +12,16 @@
     justify-content: space-between; /* Espacio entre los divs */
     align-items: flex-start; /* Alinea los divs al inicio verticalmente */
     text-align: center;
+    border-radius: 20px 20px 0 0;
+}
+.footer-h3{
+    font-size: 23px;
+    color: rgb(214, 214, 214);
+    border-bottom: 1px solid white;
+    margin-bottom: 15px;
+}
+.parrafo-footer{
+    font-size: 15px;
 }
 @keyframes gradientAnimation {
     0% { background-position: 0% 50%; }

@@ -1,0 +1,219 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 7,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-12-04T01:08:23.644Z",
+    "end": "2024-12-04T01:08:39.924Z",
+    "duration": 16280,
+    "testsRegistered": 7,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "7c616df3-8df7-4024-8e74-e4e4e51b5b44",
+      "title": "",
+      "fullFile": "cypress\\e2e\\solucionTestFormularios.cy.js",
+      "file": "cypress\\e2e\\solucionTestFormularios.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b62c0ac9-73f1-4308-8d97-b73c8d6903e9",
+          "title": "Formulario de Huésped",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Debe permitir ingresar un nombre válido",
+              "fullTitle": "Formulario de Huésped Debe permitir ingresar un nombre válido",
+              "timedOut": null,
+              "duration": 2508,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('input[name=\"nombre\"]').type('Juan').should('have.value', 'Juan');\ncy.wait(1000);",
+              "err": {},
+              "uuid": "0259c2ea-9762-450c-9462-5803b50fa3fa",
+              "parentUUID": "b62c0ac9-73f1-4308-8d97-b73c8d6903e9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe permitir ingresar un nombre con tilde sin mostrar alerta de error, pero falla",
+              "fullTitle": "Formulario de Huésped Debe permitir ingresar un nombre con tilde sin mostrar alerta de error, pero falla",
+              "timedOut": null,
+              "duration": 1745,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('input[name=\"nombre\"]').type('Saúl');\ncy.get('.alert-error').should('not.exist');\ncy.wait(1000);",
+              "err": {},
+              "uuid": "de1f4b45-f254-4d20-a596-488467ce6bd7",
+              "parentUUID": "b62c0ac9-73f1-4308-8d97-b73c8d6903e9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe mostrar error para nombre inválido",
+              "fullTitle": "Formulario de Huésped Debe mostrar error para nombre inválido",
+              "timedOut": null,
+              "duration": 1550,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('input[name=\"nombre\"]').type('12345');\ncy.get('.alert-error').should('contain', 'Nombre no válido');\ncy.wait(1000);",
+              "err": {},
+              "uuid": "8cc012b8-6507-4849-beec-6c7aa946eb8b",
+              "parentUUID": "b62c0ac9-73f1-4308-8d97-b73c8d6903e9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe permitir ingresar un apellido con tilde sin mostrar alerta de error, pero falla",
+              "fullTitle": "Formulario de Huésped Debe permitir ingresar un apellido con tilde sin mostrar alerta de error, pero falla",
+              "timedOut": null,
+              "duration": 1628,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('input[name=\"apellidos\"]').type('Pérez Gómes');\ncy.get('.alert-error').should('not.exist');\ncy.wait(1000);",
+              "err": {},
+              "uuid": "ca172c72-c9df-4a3a-8c4f-964a729bd337",
+              "parentUUID": "b62c0ac9-73f1-4308-8d97-b73c8d6903e9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe mostrar error para apellidos inválidos",
+              "fullTitle": "Formulario de Huésped Debe mostrar error para apellidos inválidos",
+              "timedOut": null,
+              "duration": 1536,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('input[name=\"apellidos\"]').type('12345');\ncy.get('.alert-error').should('contain', 'Apellidos no válidos');\ncy.wait(1000);",
+              "err": {},
+              "uuid": "c8bb4a01-a6ae-4d5b-9ee5-f56f4b3d5bbb",
+              "parentUUID": "b62c0ac9-73f1-4308-8d97-b73c8d6903e9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe permitir ingresar un email válido",
+              "fullTitle": "Formulario de Huésped Debe permitir ingresar un email válido",
+              "timedOut": null,
+              "duration": 1779,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('input[name=\"email\"]').type('juan.perez@example.com').should('have.value', 'juan.perez@example.com');\ncy.wait(1000);",
+              "err": {},
+              "uuid": "4aa534f8-dba7-421c-b311-a56ce1e0f80a",
+              "parentUUID": "b62c0ac9-73f1-4308-8d97-b73c8d6903e9",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Debe mostrar error para email inválido",
+              "fullTitle": "Formulario de Huésped Debe mostrar error para email inválido",
+              "timedOut": null,
+              "duration": 1606,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('input[name=\"email\"]').type('juan.perez');\ncy.get('.alert-error').should('contain', 'Email no válido');\ncy.wait(1000);",
+              "err": {},
+              "uuid": "d00013ce-2d3a-455d-b294-909ed73c8d87",
+              "parentUUID": "b62c0ac9-73f1-4308-8d97-b73c8d6903e9",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "0259c2ea-9762-450c-9462-5803b50fa3fa",
+            "de1f4b45-f254-4d20-a596-488467ce6bd7",
+            "8cc012b8-6507-4849-beec-6c7aa946eb8b",
+            "ca172c72-c9df-4a3a-8c4f-964a729bd337",
+            "c8bb4a01-a6ae-4d5b-9ee5-f56f4b3d5bbb",
+            "4aa534f8-dba7-421c-b311-a56ce1e0f80a",
+            "d00013ce-2d3a-455d-b294-909ed73c8d87"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 12352,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
