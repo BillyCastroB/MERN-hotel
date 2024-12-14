@@ -10,6 +10,7 @@ import { ClienteState } from './context/clienteContext/ClienteState';
 import { DisponibleState } from './context/disponibilidad/DisponibleState';
 import { useContext } from 'react';
 import { Boleta } from './Components/Habitaciones/boletaHotel/Boleta';
+import { Recuperar } from './Components/Admin/Recuperar/Recuperar';
 function App() {
   return (
     <HabitacionState>
@@ -24,6 +25,7 @@ function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/panel" element={<Crud />} />
               <Route path="/boleta" element={<Boleta />} />
+              <Route path="/RecuperarContra" element={ <Recuperar/>} />
             </Routes>
           </BrowserRouter>
         </ClienteState>

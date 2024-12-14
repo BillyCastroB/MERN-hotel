@@ -1,7 +1,5 @@
 .td{
-    background: linear-gradient(351deg, rgba(10, 6, 34, 0.897) 0%, rgb(58, 58, 58) 66%);
-    background-size: 200% 200%; /* Hace que el degradado sea más dinámico */
-    animation: gradientAnimation 4s ease infinite;
+    background-image: url("./imagenesPaginas/hotel-portada.webp");
 }
 h5{
     font-size: 18px;
@@ -103,7 +101,7 @@ progress::-webkit-progress-value {
     width: 95%;
     margin: 0 auto;
     box-shadow: 3px 2px 5px rgb(125, 125, 125);
-    background-color: gray;
+    background-color: rgb(255, 255, 255);
 
 }
 input::placeholder {
@@ -112,6 +110,7 @@ input::placeholder {
     opacity: 0.7; 
     text-align: left;
 }
+
 .form-huesped--btn{
     display: flex;
     justify-content: end;

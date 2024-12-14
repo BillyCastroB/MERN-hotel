@@ -134,6 +134,7 @@ export const ReservaHabitacion = () => {
     setErrorVacios(false);
 
     enviarDatosHuesped();
+    alert("ahora confirme las fechas");
   };
 
   const enviarDatosHuesped = () => {

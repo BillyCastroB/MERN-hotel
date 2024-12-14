@@ -4,6 +4,9 @@
     margin: 0;
     padding: 0;
 }
+.editandoParaExamen{
+    font-size: 20px;
+}
 html{
     box-sizing: border-box;
     font-size: 62.5%;

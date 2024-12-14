@@ -23,9 +23,9 @@ export const MainInicio = () => {
                 </div>
                 <div className='cont2'>
                     <img className='estrella' src="./imagenesPaginas/estrella.png" alt="imagen-adorno" />
-                    <h3>Si lo puedes imaginar <br /> ..lo puedes programar</h3>
+                    <h3>Descubre el placer <br /> de la comodidad</h3>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas officiis nesciunt corporis autem optio repellendus consequuntur consequatur eum accusantium.
+                    Descubre un hogar lejos de casa, donde la comodidad y la hospitalidad se unen para crear experiencias inolvidables
                     </p>
                 </div>
                 <div className='cont3 cont-img'>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import QRCode from "react-qr-code";
 import './Boleta.css';
-import clienteAxios from '../../../../../../MERN-adminProyectos/cliente/config/axios';
+import { cliente } from './Cliente';
 
 export function Boleta() {
   const numero = localStorage.getItem('habitacion');

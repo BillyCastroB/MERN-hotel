@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import './Admin.css';
 import { clienteAxios } from '../../../config/clienteAxios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export const Admin = () => {
   const [formData, setFormData] = useState({
     usuario: '',
     contraseña: ''
   });
-  
+  const [count, setCount] = useState(0);
+  const [ habilitar, setHabilitar] = useState(false)
   const [logeo, setLogeo] = useState(false);
   const [mensajeError, setMensajeError] = useState('');
-  const [isUsuarioValido, setIsUsuarioValido] = useState(true); // Estado de validez del campo usuario
-  const [isInputValid, setIsInputValid] = useState(true); // Validación general de la entrada
+  const [isUsuarioValido, setIsUsuarioValido] = useState(true); 
+  const [isInputValid, setIsInputValid] = useState(true); 
   const navigate = useNavigate();
-
+  useEffect( ()=>{
+    if(count===3){
+      setHabilitar(true);
+    }
+  },[count] )
   useEffect(() => {
     if (logeo) {
       navigate('/panel');
@@ -40,8 +45,10 @@ export const Admin = () => {
     });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setCount( prev=> prev+1 );
     try {
       const resultado = await clienteAxios.post('/login', { 
         usuario: formData.usuario, 
@@ -90,18 +97,27 @@ export const Admin = () => {
               onChange={handleChange}
             />
           </fieldset>
-          <input 
-            className='btn-btn-login' 
-            type="submit" 
-            value="Ingresar" 
-            disabled={!isUsuarioValido || !formData.usuario || !formData.contraseña} // Deshabilita el botón si el usuario es inválido
-          />
-          {mensajeError && <p className='mensajeError'>{mensajeError}</p>} {/* Mostrar el mensaje de error si existe */}
+          {
+            habilitar? null : 
+            (
+              <input 
+                className='btn-btn-login' 
+                type="submit" 
+                value="Ingresar" 
+                disabled={!isUsuarioValido || !formData.usuario || !formData.contraseña} // Deshabilita el botón si el usuario es inválido
+              />
+            )
+          }
+          
+          {mensajeError && <p className='mensajeError'>{mensajeError}</p>}
+          {habilitar? <p className='mensajeError'>Excediste el limite de intentos</p>: null}
           <div className='container-btn'>
             <button onClick={volverInicio} type='button' className='btn-volver'>
-              <img src="./imagenesPaginas/volver.png" alt="Volver" />
+              <img src="./imagenesPaginas/volver.png" alt="Volver"/>
             </button>
           </div>
+          <p className='texto-recuperar'>¿Olvidaste tu contraseña? click aquí</p>
+          <Link to={'/recuperarContra'}>Recuperar contraseña</Link>
         </form>
       </section>
     </div>

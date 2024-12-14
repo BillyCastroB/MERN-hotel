@@ -72,7 +72,7 @@ export const Habitacion = ({ habitacion }) => {
               </div>
               <form>
                 <div className="formulario_dato">
-                  <label htmlFor="diaInicio">Fecha inicio</label>
+                  <label className='editandoParaExamen' htmlFor="diaInicio">Fecha inicio</label>
                   <input
                     type="date"
                     name="diaInicio"
